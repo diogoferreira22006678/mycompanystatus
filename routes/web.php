@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Doc;
+use App\Models\Folder;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*-----------------------------------Login-----------------------------------*/
+
+Route::post('/login', 'LoginController@login')->name('login');
+
+Route::post('/logout', 'LoginController@logout')->name('logout');
+
+Route::post('/register', 'LoginController@register')->name('register');
+
+Route::get('/dashboard',function(){
     return view('dashboard');
-});
+})->name('dashboard');
 
 Route::get('/login', function () {
     return view('login');
-})->name('login');
+}) -> name('loginPage');
 
 Route::get('/register', function () {
     return view('register');
-})->name('register');
+}) -> name('registerPage');
+
+
+
+// User logged in
+Route::middleware('perms')->group(function(){
+ 
+});
+
+// User logged in and is admin
+Route::middleware('perms:admin')->group(function(){
+
+});
