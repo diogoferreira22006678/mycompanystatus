@@ -25,10 +25,6 @@ Route::post('/logout', 'LoginController@logout')->name('logout');
 
 Route::post('/register', 'LoginController@register')->name('register');
 
-Route::get('/dashboard',function(){
-    return view('dashboard');
-})->name('dashboard');
-
 Route::get('/login', function () {
     return view('login');
 }) -> name('loginPage');
@@ -37,11 +33,17 @@ Route::get('/register', function () {
     return view('register');
 }) -> name('registerPage');
 
-
-
 // User logged in
 Route::middleware('perms')->group(function(){
- 
+
+    Route::get('/', function(){
+        return view('homepage');
+    })->name('homePage');
+
+    Route::get('/dashboard',function(){
+        return view('dashboard');
+    })->name('dashboard');
+    
 });
 
 // User logged in and is admin
