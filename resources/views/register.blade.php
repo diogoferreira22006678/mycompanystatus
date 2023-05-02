@@ -1,4 +1,4 @@
-@extends('_layouts.layout', ['title' => 'Register'])
+@extends('_layouts.layoutSimple', ['title' => 'Register'])
 @section('body')
 <body class="bg-gradient-primary">
     <div class="container">
