@@ -27,13 +27,16 @@ Route::post('/table/users', 'TableController_api@users');
 Route::get('/select/users', 'SelectController_api@users');
 
 //Route to create Users
-Route::post('/create/users', 'DocsController@usersCreate')->name('users.createUsers');
+Route::post('/create/users', 'LoginController@usersCreate')->name('users.createUsers');
 
 //Route to update Users
-Route::post('/update/users', 'DocsController@usersUpdate')->name('users.editUsers');
+Route::post('/update/users', 'LoginController@usersUpdate')->name('users.editUsers');
 
 //Route to delete Users
-Route::post('/delete/users', 'DocsController@usersDelete')->name('users.deleteUsers');
+Route::post('/delete/users', 'LoginController@usersDelete')->name('users.deleteUsers');
+
+// Route to alter user photo
+Route::post('/alterPhoto/users', 'LoginController@usersAlterPhoto')->name('users.alterPhoto');
 
 
 

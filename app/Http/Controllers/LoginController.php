@@ -65,5 +65,10 @@ class LoginController extends Controller
 
         return redirect()->route('loginPage');
     }
+
+    public function usersAlterPhoto(Request $request){
+        dd($request->all());
+    }
+
 }
 

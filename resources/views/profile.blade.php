@@ -5,72 +5,18 @@
 @section('body')
 <div class="container-fluid">
     <h3 class="text-dark mb-4">Profile</h3>
-    <div class="row mb-3">
+    <div class="row">
         <div class="col-lg-4">
-            <div class="card mb-3">
-                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
-                </div>
-            </div>
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-3">
                 <div class="card-header py-3">
-                    <h6 class="text-primary fw-bold m-0">Projects</h6>
+                    <p class="text-primary m-0 fw-bold">User Photo</p>
                 </div>
-                <div class="card-body">
-                    <h4 class="small fw-bold">Server migration<span class="float-end">20%</span></h4>
-                    <div class="progress progress-sm mb-3">
-                        <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"><span class="visually-hidden">20%</span></div>
-                    </div>
-                    <h4 class="small fw-bold">Sales tracking<span class="float-end">40%</span></h4>
-                    <div class="progress progress-sm mb-3">
-                        <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"><span class="visually-hidden">40%</span></div>
-                    </div>
-                    <h4 class="small fw-bold">Customer Database<span class="float-end">60%</span></h4>
-                    <div class="progress progress-sm mb-3">
-                        <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><span class="visually-hidden">60%</span></div>
-                    </div>
-                    <h4 class="small fw-bold">Payout Details<span class="float-end">80%</span></h4>
-                    <div class="progress progress-sm mb-3">
-                        <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"><span class="visually-hidden">80%</span></div>
-                    </div>
-                    <h4 class="small fw-bold">Account setup<span class="float-end">Complete!</span></h4>
-                    <div class="progress progress-sm mb-3">
-                        <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="visually-hidden">100%</span></div>
-                    </div>
+                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-photo">Change Photo</button></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="row mb-3 d-none">
-                <div class="col">
-                    <div class="card text-white bg-primary shadow">
-                        <div class="card-body">
-                            <div class="row mb-2">
-                                <div class="col">
-                                    <p class="m-0">Peformance</p>
-                                    <p class="m-0"><strong>65.2%</strong></p>
-                                </div>
-                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                            </div>
-                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card text-white bg-success shadow">
-                        <div class="card-body">
-                            <div class="row mb-2">
-                                <div class="col">
-                                    <p class="m-0">Peformance</p>
-                                    <p class="m-0"><strong>65.2%</strong></p>
-                                </div>
-                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                            </div>
-                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-8">       
             <div class="row">
                 <div class="col">
                     <div class="card shadow mb-3">
@@ -80,9 +26,6 @@
                         <div class="card-body">
                             <form>
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" placeholder="user.name" name="username"></div>
-                                    </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
                                     </div>
@@ -99,46 +42,88 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Contact Settings</p>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="mb-3"><label class="form-label" for="address"><strong>Address</strong></label><input class="form-control" type="text" id="address" placeholder="Sunset Blvd, 38" name="address"></div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="city"><strong>City</strong></label><input class="form-control" type="text" id="city" placeholder="Los Angeles" name="city"></div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="country"><strong>Country</strong></label><input class="form-control" type="text" id="country" placeholder="USA" name="country"></div>
-                                    </div>
-                                </div>
-                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card shadow mb-5">
-        <div class="card-header py-3">
-            <p class="text-primary m-0 fw-bold">Forum Settings</p>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <form>
-                        <div class="mb-3"><label class="form-label" for="signature"><strong>Signature</strong><br></label><textarea class="form-control" id="signature" rows="4" name="signature"></textarea></div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"><strong>Notify me about new replies</strong></label></div>
-                        </div>
-                        <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal for the photo upload  -->
+@component('_components.cardModal' , [
+    'id' => 'modal-photo',
+    'class' => 'modal-success',
+    'title' => 'Change Photo',
+    'close' => true,
+ ])
+    <form id="form-photo" >
+		<input type="hidden" name="user_id" />
+		<div class="modal-body">
+            <div class="form-group">
+                <label>Photo</label>
+                <input type="file" name="photo" class="form-control" />
+            </div>
+		</div>
+	</form>
+    @slot('footer')
+    <div class="mb-3"><button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-photo">Cancel</button></div>
+    <div class="mb-3"><button type="submit" form="form-photo" class="btn btn-success btn-sm" style="color:white" type="button" data-bs-toggle="modal" data-bs-target="#modal-photo">Submit</button></div>
+    @endslot
+@endComponent
+@endsection
+
+@section('scripts')
+<script>
+
+    let modalPhoto = document.getElementById('modal-photo');
+    let $modalPhoto = $(modalPhoto);
+    let formPhoto = document.getElementById('form-photo');
+    formPhoto.addEventListener('submit', i=>{
+        i.preventDefault();
+        console.log(formPhoto)
+        $.ajax({
+            type: 'POST',
+            data: new FormData(formPhoto),
+            url: '{{ route('users.alterPhoto') }}',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data){
+                if(data.success){
+                    $modalPhoto.modal('hide');
+                    toastr.success(data.message);
+                }else{
+                    toastr.error(data.message);
+                }
+            },
+            error: function (data){
+                toastr.error(data.message);
+            }
+        })
+    });
+
+
+    // function savePhoto(){
+    //     var form = $('#form-photo');
+    //     var formData = new FormData(form[0]);
+    //     $.ajax({
+    //         type: 'POST',
+    //         data: formData,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (data){
+    //             if(data.success){
+    //                 $('#modal-photo').modal('hide');
+    //                 toastr.success(data.message);
+    //             }else{
+    //                 toastr.error(data.message);
+    //             }
+    //         },
+    //         error: function (data){
+    //             toastr.error(data.message);
+    //         }
+    //     });
+    // }
+
+</script>
 @endsection
