@@ -94,14 +94,13 @@ class LoginController extends Controller
 
         // Path is in the storage/app/public/profile-photos folder
         $photo->storeAs('public/profile-photos', $id . '.' . $extension);
-
-        return redirect()->back()->withErrors(['credentials' => 'The photo was successfully uploaded.']);
+        
+        return redirect()->back()->withErrors(['message' => 'The photo was successfully uploaded. You may need to refresh the page to see the changes.']);
+        
     }
 
     public function usersGetPhoto(Request $request){
         $id = $request->user_id;
-
-
 
         // Check in the storage if the user has a photo, if not, return the default photo
         if(file_exists(storage_path('app/public/profile-photos/' . $id . '.jpg'))){
@@ -117,6 +116,38 @@ class LoginController extends Controller
         }
         // else return the default photo
         return response()->json(['photo' => 'default.png']);
+    }
+
+    public function usersAlterSettings(Request $request){
+
+        $user = User::getCurrent();
+        $id = $user->user_id;
+
+        // Check if the email is already taken
+        if(User::where('user_email', $request->input('email'))->where('user_id', '!=', $id)->first()){
+            return redirect()->back()->withErrors(['credentials' => 'The provided email is already taken.']);
+        }
+
+        // if first_name or last_name is null, it means that the user is not changing them, so we don't need to update them
+        if($request->input('first_name') != null && $request->input('last_name') != null){
+            $user->user_name = $request->input('first_name') . ' ' . $request->input('last_name');
+        }
+        
+        if($request->input('first_name') == null){
+            $temp = explode(' ', $user->user_name);
+            $user->user_name = $temp[0] . ' ' . $request->input('last_name');
+        }
+
+        if($request->input('last_name') == null){
+            $temp = explode(' ', $user->user_name);
+            $user->user_name = $request->input('first_name') . ' ' . $temp[1];
+        }
+
+        $user->user_email = $request->input('email');
+
+        $user->save();
+
+        return redirect()->back()->withErrors(['message' => 'The settings were successfully updated.']);
     }
 }
 

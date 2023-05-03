@@ -41,5 +41,8 @@ Route::post('/alterPhoto/users', 'LoginController@usersAlterPhoto')->name('users
 // Route to get user photo
 Route::get('/getPhoto/users', 'LoginController@usersGetPhoto')->name('users.getPhoto');
 
+// Route to alter settings
+Route::post('/alterSettings/users', 'LoginController@usersAlterSettings')->name('users.alterSettings');
+
 
 

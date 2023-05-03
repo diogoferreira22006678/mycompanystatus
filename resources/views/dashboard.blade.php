@@ -5,13 +5,21 @@
     <h3 class="text-dark mb-0">Dashboard</h3>
     <!-- select the year using a dropdown with the years bootstrap class -->
     <div class="dropdown me-2">
-        <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" type="button">Select Year</button>
-        <ul class="dropdown-menu dropdown-menu-end" role="menu">
-            <!-- loop through the years and display them in the dropdown -->
-            {{-- @foreach ($years as $year)
-            <li><a class="dropdown-item" role="presentation" href="{{ route('dashboard', ['year' => $year->year]) }}">{{ $year->year }}</a></li>
-            @endforeach --}}
-        </ul>
+        <form>
+            @csrf
+            @component('_components.formSelect',[
+            'required' => true,
+            'class' => '',
+            'attributes' => 'ajax-url="/api/select/categories"',
+            'name' => 'category_id',
+            'placeholder' => 'Year',
+            'array' => [],
+            'key' => 'id',
+            'value' => 'title'
+            ])
+            @endcomponent
+            <button type="submit" class="btn btn-primary">Get Report</button>
+        </form>
     </div>    
     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
 </div>
@@ -22,7 +30,7 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                         <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Earnings (monthly)</span></div>
-                        <div class="text-dark fw-bold h5 mb-0"><span>$40,000</span></div>
+                        <div class="text-dark fw-bold h5 mb-0"><span>€40,000</span></div>
                     </div>
                     <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
                 </div>
@@ -35,7 +43,7 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col me-2">
                         <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Earnings (annual)</span></div>
-                        <div class="text-dark fw-bold h5 mb-0"><span>$215,000</span></div>
+                        <div class="text-dark fw-bold h5 mb-0"><span>€215,000</span></div>
                     </div>
                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                 </div>

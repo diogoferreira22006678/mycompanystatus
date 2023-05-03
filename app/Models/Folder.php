@@ -5,21 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Folder extends Model
+class Company extends Model
 {
     use HasFactory;
 
-    protected $table = 'folders';
-    protected $primaryKey = 'folder_id';
-    protected $fillable = ['folder_name', 'folder_path', 'category_id', 'folder_description'];
+    protected $table = 'company';
+    protected $primaryKey = 'company_id';
+    protected $fillable = ['company_name', 'company_address', 'company_email', 'company_phone', 'company_nif',
+                           'company_sector', 'company_website','user_id'];
 
-    public function docs()
+    public function reports()
     {
-        return $this->hasMany(Doc::class, 'folder_id', 'folder_id');
+        return $this->hasMany(Report::class, 'company_id', 'company_id');
     }
 
-    public function categories()
-    {
-        return $this->hasOne(Category::class, 'category_id', 'category_id');
-    }
+    
 }

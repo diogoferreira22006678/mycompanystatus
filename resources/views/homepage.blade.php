@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Welcome Message With color #4e73df and using jumpotron class -->
-                <div class="jumbotron" style="background-color: #4e73df; color: white; padding: 50px;">
+                <div class="jumbotron shadow-sm" style="background-color: #4e73df; color: white; padding: 50px;">
                     <h1 class="display-4">Welcome to MyCompanyStatus!</h1>
                     <p class="lead">We provide financial data analysis for companies.</p>
                     <hr class="my-4">
@@ -16,7 +16,7 @@
         </div>
     </div>
     <!-- Features -->
-    <div class="container" style="margin-top: 50px; background-color: white; padding: 40px;">
+    <div class="container shadow-sm" style="margin-top: 50px; background-color: white; padding: 40px;">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center mb-5" style="color:#4e73df">What We Offer</h2>
@@ -27,7 +27,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h3 class="card-title" style="color:#4e73df">Financial Data Analysis</h3>
-                        <p class="card-text">We analyze financial data of companies and provide insights into their performance.</p>
+                        <p class="card-text">We analyze financial data of companies and provide insights into their performance. Facing a tough decision? We're here to help.</p>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Testimonials -->
-    <div class="container" style="margin-top: 50px; background-color: white; padding: 40px;margin-bottom: 50px;">
+    <div class="container shadow-sm" style="margin-top: 50px; background-color: white; padding: 40px;margin-bottom: 50px;">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center mb-5" style="color:#4e73df">What Our Customers Say</h2>

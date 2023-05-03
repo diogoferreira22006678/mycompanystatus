@@ -48,22 +48,34 @@
             </nav>
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
-                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                            
+                    <nav class="navbar navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>                            
+                            @if($title == 'Dashboard')
+                                <div class="navbar-collapse collapse ">
+                                    <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0">
+                                        <form>
+                                            @csrf
+                                            @component('_components.formSelect',[
+                                            'required' => true,
+                                            'class' => '',
+                                            'attributes' => 'ajax-url="/api/select/categories"',
+                                            'name' => 'category_id',
+                                            'placeholder' => 'Company',
+                                            'array' => [],
+                                            'key' => 'id',
+                                            'value' => 'title'
+                                            ])
+                                            @endcomponent
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </ul>
+                                </div>  
+                            @endif
                             <ul class="navbar-nav flex-nowrap ms-auto">
-                                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
-                                </li>
-                                <li class="nav-item dropdown no-arrow mx-1">
-                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"></a>
-                                        <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in"></div>
-                                </li>
-                                <li class="nav-item dropdown no-arrow mx-1">
-                                </li>
                                 <div class="d-none d-sm-block topbar-divider"></div>
                                 <li class="nav-item dropdown no-arrow">
-                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"> {{ $user->user_name ?? null}}</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
-                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"> {{ $user->user_name ?? null}}</span><img class="border rounded-circle img-profile" id="profile-photo"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="{{ route('profile') }}"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
                                             <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('login') }}"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></a>
                                         </div>
                                     </div>
@@ -96,29 +108,57 @@
     <script src="assets/js/theme.js"></script>
     
     <script> 
-                 // define toast options
-                toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "preventDuplicates": false,
-                  "onclick": null,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut",
-                  "positionClass": "toast-bottom-right",
-                  "css": {
-                    "background-color": "green !important",
-                    // make background image of toast null
-                    "background-image": "none !important"
-                  }
-              };
+        // define toast options
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "positionClass": "toast-bottom-right",
+        "css": {
+        "background-color": "green !important",
+        // make background image of toast null
+        "background-image": "none !important"
+        }
+    };
+
+    // get user looged in
+    let user = @json($user);
+    
+    // get user_id
+    let user_id = user.user_id;
+
+
+    // ajax request to get user data
+    $.ajax({
+        type: 'GET',
+        data: {user_id: user_id},
+        url: '{{ route('users.getPhoto') }}',
+        success: function (data){
+            console.log(data);
+            let photo = data.photo;
+
+            // Get element profile-photo
+            let profilePhoto = document.getElementById('profile-photo');
+
+            // Set the src attribute of the image to the photo using storage symlink to public folder in storage/app/public/profile-photos
+            profilePhoto.setAttribute('src', '/storage/profile-photos/' + photo);
+
+        },
+        error: function (data){
+            console.log(data);
+        }
+    });
     </script>
 @yield('scripts')
 </body>

@@ -7,11 +7,11 @@
     <h3 class="text-dark mb-4">Profile</h3>
     <div class="row">
         <div class="col-lg-4">
-            <div class="card shadow mb-3">
+            <div class="card shadow mb-3 h-100">
                 <div class="card-header py-3">
                     <p class="text-primary m-0 fw-bold">User Photo</p>
                 </div>
-                <div class="card-body text-center shadow"><img id=profile-photo class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                <div class="card-body text-center shadow"><img id=profile-photo2 class="rounded-circle mb-3 mt-4" width="160" height="160">
                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-photo">Change Photo</button></div>
                 </div>
             </div>
@@ -19,12 +19,16 @@
         <div class="col-lg-8">       
             <div class="row">
                 <div class="col">
-                    <div class="card shadow mb-3">
+                    <div class="card shadow mb-3 h-100">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">User Settings</p>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <!-- informative message -->
+                            <div class="alert alert-info" role="alert">
+                                <p class="text-center">If u want to mantain the field with the same value, just leave it blank</p>
+                            </div>
+                            <form id="form-settings">
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
@@ -74,6 +78,29 @@
 @section('scripts')
 <script>
 
+    let formSettings = document.getElementById('form-settings');
+    formSettings.addEventListener('submit', i =>{
+        i.preventDefault();
+        $.ajax({
+            type: 'POST',
+            data: new FormData(formSettings),
+            url: '{{ route('users.alterSettings') }}',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data){
+                console.log(data);
+                toastr.success('Settings changed successfully');
+            },
+            error: function (data){
+                console.log(data);
+                toastr.error('Error changing settings');
+            }
+        })
+    });
+
+
+
     let modalPhoto = document.getElementById('modal-photo');
     let $modalPhoto = $(modalPhoto);
     let formPhoto = document.getElementById('form-photo');
@@ -88,23 +115,18 @@
             contentType: false,
             processData: false,
             success: function (data){
+                console.log(data);
                     $modalPhoto.modal('hide');
-                    toastr.success(data.message);
+                    toastr.success('Photo changed successfully, please refresh the page');
             },
             error: function (data){
                 $modalPhoto.modal('hide');
-                toastr.error(data.message);
+                toastr.error('Error changing photo');
             }
         })
     });
 
     
-
-    // get user looged in
-    let user = @json($user);
-    
-    // get user_id
-    let user_id = user.user_id;
 
 
     // ajax request to get user data
@@ -117,10 +139,10 @@
             let photo = data.photo;
 
             // Get element profile-photo
-            let profilePhoto = document.getElementById('profile-photo');
+            let profilePhoto = document.getElementById('profile-photo2');
 
-            // Set the src attribute of the image to the photo on storage/app/public/profile-photos/$photo
-            profilePhoto.innerHTML = `<img class="rounded-circle mb-3 mt-4" src="storage/app/public/profile-photos/${photo}" width="160" height="160">`;
+            // Set the src attribute of the image to the photo using storage symlink to public folder in storage/app/public/profile-photos
+            profilePhoto.setAttribute('src', '/storage/profile-photos/' + photo);
 
         },
         error: function (data){
