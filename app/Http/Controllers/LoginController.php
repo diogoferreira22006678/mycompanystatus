@@ -67,8 +67,56 @@ class LoginController extends Controller
     }
 
     public function usersAlterPhoto(Request $request){
-        dd($request->all());
+        
+        // Get id of the user logged in
+        $user = User::getCurrent();
+        $id = $user->user_id;
+
+        // Get the photo from the request
+        $photo = $request->file('photo');
+
+        // Get the extension of the photo and check if it is valid
+        $extension = $photo->getClientOriginalExtension();
+        if($extension != 'jpg' && $extension != 'jpeg' && $extension != 'png'){
+            return redirect()->back()->withErrors(['credentials' => 'The provided photo is not valid.']);
+        }
+
+        // if user already has a photo in the storage/app/public/profile-photos folder, delete it, file can be found in some formats: id.jpg, id.jpeg, id.png
+        if(file_exists(storage_path('app/public/profile-photos/' . $id . '.jpg'))){
+            unlink(storage_path('app/public/profile-photos/' . $id . '.jpg'));
+        }
+        if(file_exists(storage_path('app/public/profile-photos/' . $id . '.jpeg'))){
+            unlink(storage_path('app/public/profile-photos/' . $id . '.jpeg'));
+        }
+        if(file_exists(storage_path('app/public/profile-photos/' . $id . '.png'))){
+            unlink(storage_path('app/public/profile-photos/' . $id . '.png'));
+        }
+
+        // Path is in the storage/app/public/profile-photos folder
+        $photo->storeAs('public/profile-photos', $id . '.' . $extension);
+
+        return redirect()->back()->withErrors(['credentials' => 'The photo was successfully uploaded.']);
     }
 
+    public function usersGetPhoto(Request $request){
+        $id = $request->user_id;
+
+
+
+        // Check in the storage if the user has a photo, if not, return the default photo
+        if(file_exists(storage_path('app/public/profile-photos/' . $id . '.jpg'))){
+            // return the file name as a response not the file itself
+            return response()->json(['photo' => $id . '.jpg']);
+        }
+        // Check in the other formats
+        if(file_exists(storage_path('app/public/profile-photos/' . $id . '.jpeg'))){
+            return response()->json(['photo' => $id . '.jpeg']);
+        }
+        if(file_exists(storage_path('app/public/profile-photos/' . $id . '.png'))){
+            return response()->json(['photo' => $id . '.png']);
+        }
+        // else return the default photo
+        return response()->json(['photo' => 'default.png']);
+    }
 }
 

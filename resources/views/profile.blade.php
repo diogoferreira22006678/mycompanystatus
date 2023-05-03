@@ -11,7 +11,7 @@
                 <div class="card-header py-3">
                     <p class="text-primary m-0 fw-bold">User Photo</p>
                 </div>
-                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                <div class="card-body text-center shadow"><img id=profile-photo class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
                     <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-photo">Change Photo</button></div>
                 </div>
             </div>
@@ -88,42 +88,44 @@
             contentType: false,
             processData: false,
             success: function (data){
-                if(data.success){
                     $modalPhoto.modal('hide');
                     toastr.success(data.message);
-                }else{
-                    toastr.error(data.message);
-                }
             },
             error: function (data){
+                $modalPhoto.modal('hide');
                 toastr.error(data.message);
             }
         })
     });
 
+    
 
-    // function savePhoto(){
-    //     var form = $('#form-photo');
-    //     var formData = new FormData(form[0]);
-    //     $.ajax({
-    //         type: 'POST',
-    //         data: formData,
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function (data){
-    //             if(data.success){
-    //                 $('#modal-photo').modal('hide');
-    //                 toastr.success(data.message);
-    //             }else{
-    //                 toastr.error(data.message);
-    //             }
-    //         },
-    //         error: function (data){
-    //             toastr.error(data.message);
-    //         }
-    //     });
-    // }
+    // get user looged in
+    let user = @json($user);
+    
+    // get user_id
+    let user_id = user.user_id;
 
+
+    // ajax request to get user data
+    $.ajax({
+        type: 'GET',
+        data: {user_id: user_id},
+        url: '{{ route('users.getPhoto') }}',
+        success: function (data){
+            console.log(data);
+            let photo = data.photo;
+
+            // Get element profile-photo
+            let profilePhoto = document.getElementById('profile-photo');
+
+            // Set the src attribute of the image to the photo on storage/app/public/profile-photos/$photo
+            profilePhoto.innerHTML = `<img class="rounded-circle mb-3 mt-4" src="storage/app/public/profile-photos/${photo}" width="160" height="160">`;
+
+        },
+        error: function (data){
+            console.log(data);
+        }
+    })
 </script>
 @endsection

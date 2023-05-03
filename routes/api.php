@@ -38,5 +38,8 @@ Route::post('/delete/users', 'LoginController@usersDelete')->name('users.deleteU
 // Route to alter user photo
 Route::post('/alterPhoto/users', 'LoginController@usersAlterPhoto')->name('users.alterPhoto');
 
+// Route to get user photo
+Route::get('/getPhoto/users', 'LoginController@usersGetPhoto')->name('users.getPhoto');
+
 
 
