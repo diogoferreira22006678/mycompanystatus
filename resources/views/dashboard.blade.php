@@ -23,8 +23,7 @@
     </div>
     <div>
         <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Download Excel</a>
-        <a class="btn btn-success btn-sm d-none d-sm-inline-block text-white" role="button" href="#"><i class="fas fa-bolt fa-sm text-white-50"></i>&nbsp;Generate Report</a>
-    </div>
+        <a class="btn btn-success btn-sm d-none d-sm-inline-block text-white" role="button" type="button" data-bs-toggle="modal" data-bs-target="#modal-option"><i class="fas fa-bolt fa-sm text-white-50"></i>&nbsp;Generate Report</a>    </div>
 </div>    
 <div class="row">
     <div class="col-md-6 col-xl-3 mb-4">
@@ -245,10 +244,37 @@
     </div>
 </div>
 
-
-<!-- Modal for Generate Report -->
-@component('')
-    
-@endcomponent
+@component('_components.cardModal' , [
+    'id' => 'modal-option',
+    'class' => 'modal-success',
+    'title' => 'Select Option',
+    'close' => true,
+ ])
+    <form id="form-option" >
+		<input type="hidden" name="user_id" />
+        <div class="modal-body">
+            <div class="text-center mb-3">
+                <a class="btn btn-primary btn-lg d-none d-sm-inline-block text-white" role="button" type="button" data-bs-toggle="modal" data-bs-target=""><i class="fas fa-file-export fa-sm text-white-50"></i>&nbsp;Upload Excel</a>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                <hr class="hr-left">
+                </div>
+                <div class="col-2 text-center">
+                    <p class="fs-5 fw-bold text-muted mb-3">Or</p>
+                </div>
+                <div class="col-5">
+                    <hr class="hr-right">
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-primary btn-lg d-none d-sm-inline-block text-white w-100px
+                " role="button" type="button" data-bs-toggle="modal" data-bs-target=""><i class="fas fa-edit fa-sm text-white-50"></i>&nbsp;Fill Form</a>
+            </div>
+        </div>
+	</form>
+    @slot('footer')
+    @endslot
+@endComponent
 
 @endsection
