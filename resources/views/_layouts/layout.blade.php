@@ -52,15 +52,15 @@
                         <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>                            
                             @if($title == 'Dashboard')
                                 <div class="navbar-collapse collapse ">
-                                    <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0">
+                                    <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0 w-100">
                                         <form>
                                             @csrf
                                             @component('_components.formSelect',[
                                             'required' => true,
                                             'class' => '',
-                                            'attributes' => 'ajax-url="/api/select/categories"',
-                                            'name' => 'category_id',
-                                            'placeholder' => 'Company',
+                                            'attributes' => 'ajax-url="/api/select/companies"',
+                                            'name' => 'comapany_id',
+                                            'placeholder' => 'Choose Your Company',
                                             'array' => [],
                                             'key' => 'id',
                                             'value' => 'title'
@@ -68,6 +68,10 @@
                                             @endcomponent
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
+                                        <div class="d-none d-sm-block topbar-divider"></div>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:white;">
+                                            Add New Company
+                                        </button>
                                     </ul>
                                 </div>  
                             @endif
