@@ -44,5 +44,8 @@ Route::get('/getPhoto/users', 'LoginController@usersGetPhoto')->name('users.getP
 // Route to alter settings
 Route::post('/alterSettings/users', 'LoginController@usersAlterSettings')->name('users.alterSettings');
 
+// Route to get all the companies of a user using TableController_api
+Route::post('/table/companies/{id}', 'TableController_api@companies');
+
 
 

@@ -1,10 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Doc;
-use App\Models\Folder;
-use App\Models\User;
-use App\Models\Category;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Utils;
 
@@ -100,26 +97,10 @@ class TableController_api extends Controller{
   }
 
   /* Calls */
-  public function docs(Request $request, $folder_id){
-    $query = Doc::whereHas('folder', function($query) use ($folder_id){
-      $query->where('folder_id', $folder_id);
-    });
-    return $this->search($query, $request);
-  }
 
-  public function folders(Request $request){
-    $query = Folder::with('categories');
+  // Companies that have user_id = $user_id
+  public function companies(Request $request, $user_id){
+    $query = Company::where('user_id', $user_id);
     return $this->search($query, $request);
   }
-
-  public function users(Request $request){
-    $query = User::query();
-    return $this->search($query, $request);
-  }
-  
-  public function categories(Request $request){
-    $query = Category::query();
-    return $this->search($query, $request);
-  }
-
 }

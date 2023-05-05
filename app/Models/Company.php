@@ -9,9 +9,9 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $table = 'company';
+    protected $table = 'companies';
     protected $primaryKey = 'company_id';
-    protected $fillable = ['company_name', 'company_address', 'company_email', 'company_phone', 'company_nif',
+    protected $fillable = ['company_name', 'company_address', 'company_email', 'company_phone',
                            'company_sector', 'company_website','user_id'];
 
     public function reports()

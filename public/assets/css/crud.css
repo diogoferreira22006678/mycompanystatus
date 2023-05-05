@@ -56,7 +56,7 @@ body {
   }
   .table-title {        
       padding-bottom: 15px;
-      background: #292b2c;
+      background: #4e73df;
       color: #fff;
       padding: 16px 30px;
       margin: -20px -25px 10px;
@@ -283,4 +283,8 @@ body {
   
   #cancelButton:hover{
       color: grey;
+  }
+
+  #addButton:hover{
+    background-color:  #8a9edb
   }

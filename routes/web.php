@@ -48,6 +48,18 @@ Route::middleware('perms')->group(function(){
         return view('profile');
     })->name('profile');
 
+    Route::get('companies', function(){
+        return view('companies');
+    })->name('companies');
+
+    Route::get('reports', function(){
+        return view('reports');
+    })->name('reports');
+
+    Route::get('publicReports', function(){
+        return view('publicReports');
+    })->name('publicReports');
+
 });
 
 // User logged in and is admin

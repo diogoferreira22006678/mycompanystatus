@@ -25,6 +25,9 @@
                     </a>
                     <hr class="sidebar-divider my-0">
                     <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <div class="sidebar-heading">
+                            Personal Data
+                        </div>
                         @if($title == 'Home')
                         <li class="nav-item"><a class="nav-link active" href="{{ route('homePage') }}"><i class="far fa-user-circle"></i><span>Home</span></a></li>
                         @else
@@ -35,13 +38,25 @@
                         @else
                         <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                         @endif
-                        @if($title == 'Profile')
-                        <li class="nav-item"><a class="nav-link active" href="{{ route('profile') }}"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                        @if($title == 'Companies')
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('companies') }}"><i class="fas fa-building"></i><span>My Companies</span></a></li>
                         @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('profile') }}"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('companies') }}"><i class="fas fa-building"></i><span>My Companies</span></a></li>
                         @endif
-                        <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>
-                        <li class="nav-item"></li>
+                        @if($title == 'Reports')
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports') }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        @else
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports') }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        @endif
+                        <hr class="sidebar-divider my-5">
+                        <div class="sidebar-heading">
+                            Public Data
+                        </div>
+                        @if($title == 'Public Reports')
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('publicReports') }}"><i class="fas fa-chart-bar"></i><span>Public Reports</span></a></li>
+                        @else
+                        <li class="nav-item"><a class="nav-link" href="{{ route('publicReports') }}"><i class="fas fa-chart-bar"></i><span>Public Reports</span></a></li>
+                        @endif
                     </ul>
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
                 </div>
@@ -105,7 +120,6 @@
     <script src="/lib/select2/select2.min.js"></script>
     <script src="/assets/js/main.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/chart.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
