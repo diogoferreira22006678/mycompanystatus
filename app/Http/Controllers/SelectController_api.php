@@ -22,11 +22,6 @@ class SelectController_api extends Controller{
 
   const PAGING = 10;
 
-  public function categories(Request $request){
-    $query = Category::select('category_id as id', 'category_name as text');
-    return $this->search($query, 'category_name', $request);
-  }
-
   public function sectors(Request $request){
     $query = Sector::select('sector_id as id', 'sector_name as text');
     return $this->search($query, 'sector_name', $request);
