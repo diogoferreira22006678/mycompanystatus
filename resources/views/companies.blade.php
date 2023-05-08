@@ -205,6 +205,28 @@
 
 @section('scripts')
     <script>
+
+        let modalCreate = document.getElementById('modalCreate');
+        let $modalCreate = $(modalCreate);
+        let formCreate = document.getElementById('form-create');
+        formCreate.addEventListener('submit', i => {
+            i.preventDefault();
+            $.ajax({
+                data : $(formCreate).serialize(),
+                url : "{{ route('companies.createCompanies') }}",
+                type : "POST",
+                success : function(response) {
+                    $('#modalCreate').modal('hide');    
+                	dt.refresh();
+                    toastr.success('Company Added Successfully!');
+                },
+                error : function(error) {
+                    console.log(error);
+                    alert('Error Adding Company!' + error.statusText);
+                } 
+            });
+        });
+
         let modalEdit = document.getElementById('modalEdit');
 	    let $modalEdit = $(modalEdit);
         let formEdit = document.getElementById('form-edit');
@@ -212,16 +234,17 @@
             i.preventDefault();
             $.ajax({
                 data : $(formEdit).serialize(),
+                url : "{{ route('companies.editCompanies') }}",
                 type : "POST",
                 success : function(response) {
                     console.log(response);
                     $('#modalEdit').modal('hide');    
 		        	dt.refresh();
-                    toastr.success('Pasta editada com sucesso!');
+                    toastr.success('Company Changed Successfully!');
                 },
                 error : function(error) {
                     console.log(error);
-                    alert('Erro ao editar pasta!' + error.statusText);
+                    alert('Error Changing Company!' + error.statusText);
                 } 
             });
         });
@@ -232,16 +255,17 @@
             i.preventDefault();
             $.ajax({
                 data : $(formDelete).serialize(),
+                url : "{{ route('companies.deleteCompanies') }}",
                 type : "POST",
                 success : function(response) {
                     console.log(response);
                     $('#modalDelete').modal('hide');
                     dt.refresh();
-                    toastr.success('Pasta apagada com sucesso!');
+                    toastr.success('Company Deleted Successfully!');
                 },
                 error : function(error) {
                     console.log(error);
-                    alert('Erro ao apagar pasta!' + error.statusText);
+                    alert('Error Deleting Company!' + error.statusText);
                 } 
             });
         });
