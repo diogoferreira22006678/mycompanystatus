@@ -46,5 +46,16 @@ class CompanyController extends Controller
         return response()->json([
             "message" => "company record updated"
         ], 201);
+    }
 
+    public function companiesDelete(Request $request){
+        // Delete a company
+        $company = Company::where('company_id', $request->company_id)->first();
+        $company->delete();
+
+        return response()->json([
+            "message" => "company record deleted"
+        ], 201);
+    }
+   
 }

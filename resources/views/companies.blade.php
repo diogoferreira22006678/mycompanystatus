@@ -208,6 +208,10 @@
 
         let modalCreate = document.getElementById('modalCreate');
         let $modalCreate = $(modalCreate);
+        // clean form when modal opens
+        $modalCreate.on('show.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        });
         let formCreate = document.getElementById('form-create');
         formCreate.addEventListener('submit', i => {
             i.preventDefault();
@@ -216,7 +220,7 @@
                 url : "{{ route('companies.createCompanies') }}",
                 type : "POST",
                 success : function(response) {
-                    $('#modalCreate').modal('hide');    
+                    $('#addModal').modal('hide');    
                 	dt.refresh();
                     toastr.success('Company Added Successfully!');
                 },
