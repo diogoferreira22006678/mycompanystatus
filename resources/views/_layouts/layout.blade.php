@@ -44,9 +44,10 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('companies') }}"><i class="fas fa-building"></i><span>My Companies</span></a></li>
                         @endif
                         @if($title == 'Reports')
-                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports') }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <!-- route reports with company_id and user_id -->
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports', ['company_id' => null, 'user_id' => $user->user_id]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('reports') }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports', ['company_id' => null, 'user_id' => $user->user_id]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @endif
                         <hr class="sidebar-divider my-5">
                         <div class="sidebar-heading">
@@ -65,7 +66,7 @@
                 <div id="content">
                     <nav class="navbar navbar-expand bg-white shadow mb-4 topbar static-top">
                         <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>                            
-                            @if($title == 'Dashboard')
+                            @if($title == 'Dashboard' || $title == 'Reports')
                                 <div class="navbar-collapse collapse ">
                                     <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0 w-100">
                                         <form>
@@ -74,7 +75,7 @@
                                             'required' => true,
                                             'class' => '',
                                             'attributes' => 'ajax-url="/api/select/companies"',
-                                            'name' => 'comapany_id',
+                                            'name' => 'company_id',
                                             'placeholder' => 'Choose Your Company',
                                             'array' => [],
                                             'key' => 'id',

@@ -1,4 +1,3 @@
-
 @extends('_layouts.layout', 
 ['title' => 'Profile'])
 

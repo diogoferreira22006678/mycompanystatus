@@ -10,10 +10,10 @@ class CompanyController extends Controller
     {
         // Create a new company
         $company = new Company;
-        $company->company_name = $request->name;
-        $company->company_email = $request->email;
-        $company->company_phone = $request->phone;
-        $company->company_website = $request->website;
+        $company->company_name = $request->company_name;
+        $company->company_email = $request->company_email;
+        $company->company_phone = $request->company_phone;
+        $company->company_website = $request->company_website;
         $company->user_id = $request->user_id;
         $company->sector_id = $request->sector_id;
         if($request->status == 'private'){
@@ -28,7 +28,7 @@ class CompanyController extends Controller
         ], 201);
     }
 
-    public function companieEdit(Request $request){
+    public function companiesUpdate(Request $request){
         // Edit a company
         $company = Company::where('company_id', $request->company_id)->first();
         $company->company_name = $request->company_name;

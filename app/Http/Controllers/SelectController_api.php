@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Sector;
-use App\Models\Category;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class SelectController_api extends Controller{
@@ -25,5 +26,11 @@ class SelectController_api extends Controller{
   public function sectors(Request $request){
     $query = Sector::select('sector_id as id', 'sector_name as text');
     return $this->search($query, 'sector_name', $request);
+  }
+
+  public function companies(Request $request){
+    // Select all the companies from a user
+    $query = Company::select('company_id as id', 'company_name as text')->where('user_id', User::getCurrent()->user_id);
+    return $this->search($query, 'company_name', $request);
   }
 }

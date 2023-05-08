@@ -1,6 +1,7 @@
-@extends('_layouts.layout', [
-    'title' => 'Companies'
-])
+
+@extends('_layouts.layout', 
+['title' => 'Reports'])
+
 
 @section('head')
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -41,7 +42,7 @@
                 <tr option-key="${company_id}">
                     <td>${company_id}</td>
                     <td>${company_name}</td>
-                    <td>${sector.sector_name}</td>
+                    <td>${sector.sector_name}</td> 
                     <td id="optionFilms">
                         <a id="optionEdit" option="edit" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a id="optionDelete" option="delete" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

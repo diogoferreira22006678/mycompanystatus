@@ -52,6 +52,9 @@ Route::post('/table/companies/{id}', 'TableController_api@companies');
 // Route to select a sector using SelectController_api
 Route::get('/select/sectors', 'SelectController_api@sectors');
 
+//Route to select a company using SelectController_api
+Route::get('/select/companies', 'SelectController_api@companies');
+
 // Route to create Companies
 Route::post('/create/companies', 'CompanyController@companiesCreate')->name('companies.createCompanies');
 
