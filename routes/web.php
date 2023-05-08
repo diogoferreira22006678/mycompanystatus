@@ -2,9 +2,12 @@
 
 use App\Models\Doc;
 use App\Models\Folder;
+use App\Models\Sector;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\EconomicSectorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/economic-sectors', [EconomicSectorController::class, 'getEconomicSectors']);
 /*-----------------------------------Login-----------------------------------*/
 
 Route::post('/login', 'LoginController@login')->name('login');

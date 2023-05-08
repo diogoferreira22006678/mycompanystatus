@@ -11,7 +11,7 @@ class Company extends Model
 
     protected $table = 'companies';
     protected $primaryKey = 'company_id';
-    protected $fillable = ['company_name', 'company_address', 'company_email', 'company_phone',
+    protected $fillable = ['company_name', 'company_email', 'company_phone',
                            'company_sector', 'company_website','user_id'];
 
     public function reports()
@@ -19,5 +19,10 @@ class Company extends Model
         return $this->hasMany(Report::class, 'company_id', 'company_id');
     }
 
+    // Each company belongs to a sector
+    public function sector()
+    {
+        return $this->hasOne(Sector::class, 'sector_id', 'sector_id');
+    }
     
 }

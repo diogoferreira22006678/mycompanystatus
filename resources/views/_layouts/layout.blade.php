@@ -83,10 +83,6 @@
                                             @endcomponent
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
-                                        <div class="d-none d-sm-block topbar-divider"></div>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:white;">
-                                            Add New Company
-                                        </button>
                                     </ul>
                                 </div>  
                             @endif

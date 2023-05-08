@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Sector;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -24,5 +25,10 @@ class SelectController_api extends Controller{
   public function categories(Request $request){
     $query = Category::select('category_id as id', 'category_name as text');
     return $this->search($query, 'category_name', $request);
+  }
+
+  public function sectors(Request $request){
+    $query = Sector::select('sector_id as id', 'sector_name as text');
+    return $this->search($query, 'sector_name', $request);
   }
 }

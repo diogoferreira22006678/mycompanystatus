@@ -100,7 +100,7 @@ class TableController_api extends Controller{
 
   // Companies that have user_id = $user_id
   public function companies(Request $request, $user_id){
-    $query = Company::where('user_id', $user_id);
-    return $this->search($query, $request);
+      $query = Company::with('sector')->where('user_id', $user_id);
+      return $this->search($query, $request);
   }
 }

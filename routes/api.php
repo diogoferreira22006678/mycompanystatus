@@ -44,8 +44,22 @@ Route::get('/getPhoto/users', 'LoginController@usersGetPhoto')->name('users.getP
 // Route to alter settings
 Route::post('/alterSettings/users', 'LoginController@usersAlterSettings')->name('users.alterSettings');
 
+/*----------------------------Company---------------------------------------------------*/
+
 // Route to get all the companies of a user using TableController_api
 Route::post('/table/companies/{id}', 'TableController_api@companies');
+
+// Route to select a sector using SelectController_api
+Route::get('/select/sectors', 'SelectController_api@sectors');
+
+// Route to create Companies
+Route::post('/create/companies', 'CompanyController@companiesCreate')->name('companies.createCompanies');
+
+// Route to update Companies
+Route::post('/update/companies', 'CompanyController@companiesUpdate')->name('companies.editCompanies');
+
+// Route to delete Companies
+Route::post('/delete/companies', 'CompanyController@companiesDelete')->name('companies.deleteCompanies');
 
 
 

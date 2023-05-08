@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('company_phone');
             $table->string('company_email');
             $table->string('company_website');
-            $table->string('company_sector');
+            $table->boolean('company_status');
 
-            
+            $table->unsignedBigInteger('sector_id');
+            $table->foreign('sector_id')->references('sector_id')->on('sectors');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->timestamps();
