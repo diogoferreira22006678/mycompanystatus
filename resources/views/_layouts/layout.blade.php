@@ -142,7 +142,6 @@
         "positionClass": "toast-bottom-right",
         "css": {
         "background-color": "green !important",
-        // make background image of toast null
         "background-image": "none !important"
         }
     };
