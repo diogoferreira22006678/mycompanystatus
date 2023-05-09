@@ -1,5 +1,5 @@
 @extends('_layouts.layout', 
-['title' => 'Reports'])
+['title' => 'No Companies'])
 
 @section('body')
 

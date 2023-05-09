@@ -74,7 +74,7 @@
                                             @component('_components.formSelect',[
                                             'required' => true,
                                             'class' => '',
-                                            'attributes' => 'ajax-url="/api/select/companies"',
+                                            'attributes' => 'ajax-url="/api/select/companies" fill:company_id|company_name',
                                             'name' => 'company_id',
                                             'placeholder' => 'Choose Your Company',
                                             'array' => [],
