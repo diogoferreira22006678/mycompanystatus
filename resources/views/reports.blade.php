@@ -16,7 +16,7 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Your <b>{{ $company_name }}</b> Reports</h2>
+                        <h2>Your <b>{{ $company->company_name }}</b> Reports</h2>
                     </div>
                     <div class="col-sm-6">
                         <a id="addButton" data-bs-target="#addModal" class="btn" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Report</span></a>
@@ -26,7 +26,7 @@
 
 
             <div class="table-responsive">
-            <table id="dt" datatable ajax-url="/api/table/reports/{{ $company_id }}" ajax-id="company_id" datatable-hide="-1">
+            <table id="dt" datatable ajax-url="/api/table/reports/{{ $company->company_id }}" ajax-id="company_id" datatable-hide="-1">
                 <thead>
                 <tr>
                             <th dt-name="report_id">Id</th>
@@ -307,10 +307,10 @@
             i.preventDefault();
             $.ajax({
                 data : $(form).serialize(),
-                url : "{{ route('companies.getCompany') }}",
+                url : "{{ route('reports', ['company_id' =>$company->company_id]) }}",
                 type : "GET",
                 success : function(response) {
-                    console.log(response); 
+                    console.log(response);
                 },
                 error : function(error) {
                     console.log(error);

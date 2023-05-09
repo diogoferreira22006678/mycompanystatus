@@ -67,6 +67,8 @@ Route::post('/update/companies', 'CompanyController@companiesUpdate')->name('com
 // Route to delete Companies
 Route::post('/delete/companies', 'CompanyController@companiesDelete')->name('companies.deleteCompanies');
 
+Route::get('/reports', 'CompanyController@reportsGet')->name('companies.getCompanyReports');
+
 /*-------------------------------Reports-----------------------------------------------*/
 
 // Route to get all the reports of a company using TableController_api

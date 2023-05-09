@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    
     @yield('head')
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 </head>
@@ -45,9 +44,9 @@
                         @endif
                         @if($title == 'Reports')
                         <!-- route reports with company_id and user_id -->
-                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports', ['company_id' => 0]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/reports/9"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('reports', ['company_id' => 0]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/reports/9"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @endif
                         <hr class="sidebar-divider my-5">
                         <div class="sidebar-heading">

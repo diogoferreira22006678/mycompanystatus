@@ -58,16 +58,5 @@ class CompanyController extends Controller
             "message" => "company record deleted"
         ], 201);
     }
-   
-    // public function companiesGet(Request $request){
-    //     // Get a company
-    //     $company = Company::where('company_id', $request->company_id)->first();
 
-    //     // redirect to other page
-    //     return redirect()->route('reports', [
-    //         'company_id' => $company->company_id,
-    //         'company_name' => $company->company_name,
-    //         'user' => User::getCurrent()
-    //     ]);
-    // }
 }

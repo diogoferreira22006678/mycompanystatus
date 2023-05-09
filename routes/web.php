@@ -57,23 +57,16 @@ Route::middleware('perms')->group(function(){
         return view('companies');
     })->name('companies');
 
-    Route::get('/reports/{company_id?}', function($company_id){
+    Route::get('reports/{company_id}', function($company_id){
 
-        if($company_id == 0){
-            // Get the first company of the user
-            $company = Company::where('user_id', User::getCurrent()->user_id)->first();
-        }else{
-            $company = Company::find($company_id);
-        }
+        $company = Company::where('company_id', $company_id)->first();
+        $user = User::where('user_id', $company->user_id)->first();
 
-        return view('reports', [
-            'company_id' => $company_id,
-            'company_name' => $company->company_name
-        ]);
+        return view('reports', ['company' => $company, 'user' => $user]);
+
     })->name('reports');
-    
 
-    Route::get('publicReports', function(){
+    Route::get('/public-reports', function(){
         return view('publicReports');
     })->name('publicReports');
 
