@@ -45,9 +45,9 @@
                         @endif
                         @if($title == 'Reports')
                         <!-- route reports with company_id and user_id -->
-                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports', ['company_id' => null, 'user_id' => $user->user_id]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports', ['company_id' => 0]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('reports', ['company_id' => null, 'user_id' => $user->user_id]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports', ['company_id' => 0]) }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @endif
                         <hr class="sidebar-divider my-5">
                         <div class="sidebar-heading">
@@ -69,7 +69,7 @@
                             @if($title == 'Dashboard' || $title == 'Reports')
                                 <div class="navbar-collapse collapse ">
                                     <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0 w-100">
-                                        <form>
+                                        <form id="company-form">
                                             @csrf
                                             @component('_components.formSelect',[
                                             'required' => true,
@@ -82,8 +82,9 @@
                                             'value' => 'title'
                                             ])
                                             @endcomponent
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <input type="submit" class="btn btn-primary" form="company-form" value="Go">
                                         </form>
+                                        <div class="d-none d-sm-block topbar-divider"></div>
                                     </ul>
                                 </div>  
                             @endif

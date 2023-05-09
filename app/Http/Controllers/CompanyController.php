@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -58,4 +59,15 @@ class CompanyController extends Controller
         ], 201);
     }
    
+    // public function companiesGet(Request $request){
+    //     // Get a company
+    //     $company = Company::where('company_id', $request->company_id)->first();
+
+    //     // redirect to other page
+    //     return redirect()->route('reports', [
+    //         'company_id' => $company->company_id,
+    //         'company_name' => $company->company_name,
+    //         'user' => User::getCurrent()
+    //     ]);
+    // }
 }

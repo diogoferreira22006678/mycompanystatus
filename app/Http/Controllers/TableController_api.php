@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Utils;
+use App\Models\Report;
 use App\Models\Company;
 use Illuminate\Http\Request;
-use App\Utils;
 
 class TableController_api extends Controller{
   use \App\Traits\ApiUtils;
@@ -101,6 +102,12 @@ class TableController_api extends Controller{
   // Companies that have user_id = $user_id
   public function companies(Request $request, $user_id){
       $query = Company::with('sector')->where('user_id', $user_id);
+      return $this->search($query, $request);
+  }
+
+  // Reports that have company_id = $company_id
+  public function reports(Request $request, $company_id){
+      $query = Report::with('company')->where('company_id', $company_id);
       return $this->search($query, $request);
   }
 }

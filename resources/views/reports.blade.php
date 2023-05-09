@@ -16,22 +16,22 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Your <b>Companies</b></h2>
+                        <h2>Your <b>{{ $company_name }}</b> Reports</h2>
                     </div>
                     <div class="col-sm-6">
-                        <a id="addButton" data-bs-target="#addModal" class="btn" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Company</span></a>
+                        <a id="addButton" data-bs-target="#addModal" class="btn" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Report</span></a>
                     </div>
                 </div>
             </div>
 
 
             <div class="table-responsive">
-            <table id="dt" datatable ajax-url="/api/table/companies/{{ $user->user_id }}" ajax-id="company_id" datatable-hide="-1">
+            <table id="dt" datatable ajax-url="/api/table/reports/{{ $company_id }}" ajax-id="company_id" datatable-hide="-1">
                 <thead>
                 <tr>
-                            <th dt-name="company_id">Id</th>
-                            <th dt-name="category_name">Name</th>
-                            <th dt-name="sector_id">Sector</th>
+                            <th dt-name="report_id">Id</th>
+                            <th dt-name="report_year">Ano</th>
+                            <th dt-name="report_status">Status</th>
                             <th>Actions</th>
                 </tr>
                 </thead>
@@ -40,9 +40,9 @@
             </div>
             <script id="dt-template" type="text/template">
                 <tr option-key="${company_id}">
-                    <td>${company_id}</td>
-                    <td>${company_name}</td>
-                    <td>${sector.sector_name}</td> 
+                    <td>${report_id}</td>
+                    <td>${report_year}</td>
+                    <td>${report_status}</td> 
                     <td id="optionFilms">
                         <a id="optionEdit" option="edit" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a id="optionDelete" option="delete" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -300,6 +300,23 @@
             break;
             }
         }
+        });
+
+        let form = document.getElementById('company-form');
+        form.addEventListener('submit', i => {
+            i.preventDefault();
+            $.ajax({
+                data : $(form).serialize(),
+                url : "{{ route('companies.getCompany') }}",
+                type : "GET",
+                success : function(response) {
+                    console.log(response); 
+                },
+                error : function(error) {
+                    console.log(error);
+                    alert('Error Changing Company!' + error.statusText);
+                } 
+            });
         });
 
     </script>

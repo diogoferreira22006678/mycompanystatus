@@ -55,6 +55,9 @@ Route::get('/select/sectors', 'SelectController_api@sectors');
 //Route to select a company using SelectController_api
 Route::get('/select/companies', 'SelectController_api@companies');
 
+//Route to get a company
+Route::get('/get/companies', 'CompanyController@companiesGet')->name('companies.getCompany');
+
 // Route to create Companies
 Route::post('/create/companies', 'CompanyController@companiesCreate')->name('companies.createCompanies');
 
@@ -64,5 +67,20 @@ Route::post('/update/companies', 'CompanyController@companiesUpdate')->name('com
 // Route to delete Companies
 Route::post('/delete/companies', 'CompanyController@companiesDelete')->name('companies.deleteCompanies');
 
+/*-------------------------------Reports-----------------------------------------------*/
 
+// Route to get all the reports of a company using TableController_api
+Route::post('/table/reports/{id}', 'TableController_api@reports');
+
+// Route to select a report using SelectController_api
+Route::get('/select/reports', 'SelectController_api@reports');
+
+// Route to create Reports
+Route::post('/create/reports', 'ReportController@reportsCreate')->name('reports.createReports');
+
+// Route to update Reports
+Route::post('/update/reports', 'ReportController@reportsUpdate')->name('reports.editReports');
+
+// Route to delete Reports
+Route::post('/delete/reports', 'ReportController@reportsDelete')->name('reports.deleteReports');
 

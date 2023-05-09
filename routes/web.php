@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\EconomicSectorController;
+use App\Models\Company;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,30 +57,18 @@ Route::middleware('perms')->group(function(){
         return view('companies');
     })->name('companies');
 
-    Route::get('/reports', function(){
-        $user_id = request('user_id');
-        $company_id = request('company_id');
-        
-        if(User::getCurrent()->user_id != $user_id){
-            return view('noCompanies');
+    Route::get('/reports/{company_id?}', function($company_id){
+
+        if($company_id == 0){
+            // Get the first company of the user
+            $company = Company::where('user_id', User::getCurrent()->user_id)->first();
+        }else{
+            $company = Company::find($company_id);
         }
 
-        // if company_id is null go get the first company of the user
-        if($company_id == null){
-            // See if the user has any companies
-            $companies = \DB::table('companies')->where('user_id', $user_id)->get();
-            // if the user has no companies return to the view no companies
-            if($companies->isEmpty()){
-                return view('noCompanies');
-            }else{
-                // if the user has companies get the first company
-                $company_id = $companies[0]->company_id;
-            }
-        }
-        
         return view('reports', [
-            'user_id' => $user_id,
-            'company_id' => $company_id
+            'company_id' => $company_id,
+            'company_name' => $company->company_name
         ]);
     })->name('reports');
     
