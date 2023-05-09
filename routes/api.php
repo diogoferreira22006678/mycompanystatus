@@ -67,7 +67,7 @@ Route::post('/update/companies', 'CompanyController@companiesUpdate')->name('com
 // Route to delete Companies
 Route::post('/delete/companies', 'CompanyController@companiesDelete')->name('companies.deleteCompanies');
 
-Route::get('/reports', 'CompanyController@reportsGet')->name('companies.getCompanyReports');
+Route::get('/index/reports', 'CompanyController@reportsGet')->name('companies.getCompanyReports');
 
 /*-------------------------------Reports-----------------------------------------------*/
 

@@ -44,9 +44,9 @@
                         @endif
                         @if($title == 'Reports')
                         <!-- route reports with company_id and user_id -->
-                        <li class="nav-item"><a class="nav-link active" href="/reports/9"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{{ route('reports') }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @else
-                        <li class="nav-item"><a class="nav-link" href="/reports/9"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports') }}"><i class="fas fa-chart-bar"></i><span>My Reports</span></a></li>
                         @endif
                         <hr class="sidebar-divider my-5">
                         <div class="sidebar-heading">
@@ -69,7 +69,6 @@
                                 <div class="navbar-collapse collapse ">
                                     <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0 w-100">
                                         <form id="company-form">
-                                            @csrf
                                             @component('_components.formSelect',[
                                             'required' => true,
                                             'class' => '',
@@ -81,8 +80,8 @@
                                             'value' => 'title'
                                             ])
                                             @endcomponent
-                                            <input type="submit" class="btn btn-primary" form="company-form" value="Go">
                                         </form>
+                                        <input type="submit" class="btn btn-primary" form="company-form" value="Go">
                                         <div class="d-none d-sm-block topbar-divider"></div>
                                     </ul>
                                 </div>  

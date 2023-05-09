@@ -59,4 +59,10 @@ class CompanyController extends Controller
         ], 201);
     }
 
+    public function reportsGet(Request $request){
+     // return to reports/request->company_id
+     
+     return redirect()->route('SingleCompanyReports', ['company_id' => $request->company_id]);
+    }
+
 }

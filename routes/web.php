@@ -21,7 +21,6 @@ use App\Models\Company;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/economic-sectors', [EconomicSectorController::class, 'getEconomicSectors']);
 /*-----------------------------------Login-----------------------------------*/
 
 Route::post('/login', 'LoginController@login')->name('login');
@@ -57,22 +56,28 @@ Route::middleware('perms')->group(function(){
         return view('companies');
     })->name('companies');
 
-    Route::get('reports/{company_id}', function($company_id){
+    Route::get('/reports', function(){
 
-        $company = Company::where('company_id', $company_id)->first();
-        $user = User::where('user_id', $company->user_id)->first();
+        $user = User::getCurrent();
 
-        return view('reports', ['company' => $company, 'user' => $user]);
+        return view('noCompanies', ['user' => $user]);
 
     })->name('reports');
 
-    Route::get('/public-reports', function(){
+    Route::get('(/reports/{company_id})', function($company_id){
+
+        $user = User::getCurrent();
+        $company = Company::where('company_id', $company_id)->first();
+
+        dd($company);
+        return view('reports', ['user' => $user, 'company' => $company]);
+
+    })->name('SingleCompanyReports', 
+);
+    
+    Route::get('/reports/public', function(){
         return view('publicReports');
     })->name('publicReports');
 
 });
 
-// User logged in and is admin
-Route::middleware('perms:admin')->group(function(){
-
-});
