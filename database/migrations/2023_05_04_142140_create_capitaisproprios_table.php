@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('capitaisproprios', function (Blueprint $table) {
             $table->id('capitaisproprios_id');
+            $table->decimal('capitaisproprios_capitalrealizado', 15, 2);
+            $table->decimal('capitaisproprios_outrosinstrumentoscapitalproprio', 15, 2);
+            $table->decimal('capitaisproprios_reservaslegais', 15, 2);
+            $table->decimal('capitaisproprios_resultadostransitados', 15, 2);
+            $table->decimal('capitaisproprios_outrasvariacoescapitalproprio', 15, 2);
 
             // belongsTo Balanco
             $table->unsignedBigInteger('balanco_id');

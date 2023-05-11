@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('ativoscorrentes', function (Blueprint $table) {
             $table->id('ativoscorrente_id');
+            $table->decimal('ativoscorrentes_inventarios', 15, 2);
+            $table->decimal('ativoscorrentes_clientes', 15, 2);
+            $table->decimal('ativoscorrentes_adiantamentosafornecedores', 15, 2);
+            $table->decimal('ativoscorrentes_estadoeoutrosentespublicos', 15, 2);
+            $table->decimal('ativoscorrentes_outrascontasareceber', 15, 2);
+            $table->decimal('ativoscorrentes_diferimentos', 15, 2);
+            $table->decimal('ativoscorrentes_outrosativoscorrentes', 15, 2);
+            $table->decimal('ativoscorrentes_caixaedepositosbancarios', 15, 2);
 
             // belongsTo Ativo
             $table->unsignedBigInteger('ativo_id');

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id('report_id');
             $table->integer('report_year');
-            $table->boolean('report_status');
 
             $table->unsignedBigInteger('company_id');	
             $table->foreign('company_id')->references('company_id')->on('companies');

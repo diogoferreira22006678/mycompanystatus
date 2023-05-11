@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('passivoscorrentes', function (Blueprint $table) {
             $table->id('passivoscorrente_id');
+            $table->decimal('passivosnaocorrentes_fornecedores', 15, 2);
+            $table->decimal('passivosnaocorrentes_estadoeoutrosentespublicos', 15, 2);
+            $table->decimal('passivosnaocorrentes_financiamentosobtidos', 15, 2);   
+            $table->decimal('passivosnaocorrentes_outrascontasapagar', 15, 2);
+            $table->decimal('passivosnaocorrentes_outros', 15, 2);
 
             // belongsTo Passivo
             $table->unsignedBigInteger('passivo_id');
