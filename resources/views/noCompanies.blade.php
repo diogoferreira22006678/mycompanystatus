@@ -26,22 +26,16 @@
 
 <script>
 
-        let form = document.getElementById('company-form');
-        form.addEventListener('submit', i => {
-            i.preventDefault();
-            $.ajax({
-                data : $(form).serialize(),
-                url : "{{ route('companies.getCompanyReports') }}",
-                type : "GET",
-                success : function(response) {
-                    console.log(response);
-                },
-                error : function(error) {
-                    console.log(error);
-                    alert('Error Changing Company!' + error.statusText);
-                } 
-            });
-        });
+let form = document.getElementById('company-form');
+    form.addEventListener('submit', i => {
+        i.preventDefault();
+
+        $company_id = form.elements['company_id'].value;
+
+        // Redirect the user to Url /{company_id}/reports but always root
+        window.location.href = "{{ url('/') }}/" + $company_id + "/reports";
+});
+
 
 </script>
 

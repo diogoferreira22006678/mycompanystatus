@@ -64,16 +64,7 @@ Route::middleware('perms')->group(function(){
 
     })->name('reports');
 
-    Route::get('(/reports/{company_id})', function($company_id){
-
-        $user = User::getCurrent();
-        $company = Company::where('company_id', $company_id)->first();
-
-        dd($company);
-        return view('reports', ['user' => $user, 'company' => $company]);
-
-    })->name('SingleCompanyReports', 
-);
+    Route::get('/{id_company}/reports', 'CompanyController@getCompany');
     
     Route::get('/reports/public', function(){
         return view('publicReports');

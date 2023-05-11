@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title??'Dasboard'}}</title>
     <link href=' {{ asset('assets/css/crud.css')}} ' rel='stylesheet' />
-    <link rel="stylesheet" href="/lib/select2/select2.min.css"/>
-    <link rel="stylesheet" href="/lib/datatables/datatables.min.css" />
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('/lib/select2/select2.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('/lib/datatables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-all.min.css') }}">
     @yield('head')
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 </head>
@@ -80,8 +80,8 @@
                                             'value' => 'title'
                                             ])
                                             @endcomponent
+                                            <input type="submit" class="btn btn-primary" form="company-form" value="Go">
                                         </form>
-                                        <input type="submit" class="btn btn-primary" form="company-form" value="Go">
                                         <div class="d-none d-sm-block topbar-divider"></div>
                                     </ul>
                                 </div>  
@@ -110,16 +110,16 @@
             </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
         </div>
     </body>
-    <script src="/lib/jquery/jquery.min.js"></script>
-	<script src="/lib/datatables/datatables.min.js"></script>
+    <script src="{{ asset('/lib/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('/lib/datatables/datatables.min.js') }}"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="/lib/select2/select2.min.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <script src="{{ asset('/lib/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/main.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/chart.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/chart.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bs-init.js') }}"></script>
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
     
     <script> 
         // define toast options

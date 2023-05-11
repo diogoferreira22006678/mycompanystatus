@@ -59,10 +59,16 @@ class CompanyController extends Controller
         ], 201);
     }
 
-    public function reportsGet(Request $request){
-     // return to reports/request->company_id
-     
-     return redirect()->route('SingleCompanyReports', ['company_id' => $request->company_id]);
+  
+    public function getCompany($id_company){
+        // Get a company
+        $company = Company::where('company_id', $id_company)->first();
+        $user = User::getCurrent();
+        
+        return view('reports', 
+        [
+        'company' => $company,
+        'user' => $user
+        ]);
     }
-
 }
