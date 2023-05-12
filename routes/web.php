@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Doc;
 use App\Models\User;
-use App\Models\Folder;
 use App\Models\Sector;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Http;

@@ -7,9 +7,9 @@
 <div class="container-fluid" style="background-color: #f8f9fc;">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mt-5">
                 <div class="jumbotron shadow-sm" style="background-color: #4e73df; color: white; padding: 50px;">
-                    <h1 class="display-4">Please select a company to see its reports!</h1>
+                    <h1 class="display-4">Please select a company to see its reports!   <i class="fas fa-building"></i></h1>
                     <p class="lead">Just click in the Go button after selecting a company.</p>
                     <hr class="my-4">
                     <p>If u dont have any companies, please add one on the My Companies tab.</p>

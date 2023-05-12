@@ -109,8 +109,8 @@
         </div>
     </form>      
     @slot('footer')
-    <input type="button" class="btn btn-danger text-white" data-bs-dismiss="modal" value="Cancelar" id="cancelButton">
-    <input type="submit" class="btn btn-success text-white" form="form-create" value="Adicionar">
+    <input type="button" class="btn btn-danger text-white" data-bs-dismiss="modal" value="Cancel" id="cancelButton">
+    <input type="submit" class="btn btn-success text-white" form="form-create" value="Add">
     @endslot
 @endComponent    
 
@@ -172,8 +172,8 @@
         </div>
     </form>      
     @slot('footer')
-    <input type="button" class="btn btn-danger text-white" data-bs-dismiss="modal" value="Cancelar" id="cancelButton">
-    <input type="submit" class="btn btn-success text-white" form="form-edit" value="Adicionar">
+    <input type="button" class="btn btn-danger text-white" data-bs-dismiss="modal" value="Cancel" id="cancelButton">
+    <input type="submit" class="btn btn-success text-white" form="form-edit" value="Add">
     @endslot
 @endComponent
 
@@ -196,8 +196,8 @@
         </div>
 	</form>
     @slot('footer')
-        <input type="button" class="btn btn-link" data-bs-dismiss="modal" value="Cancelar" id="cancelButton">
-        <input type="submit" class="btn btn-danger" form="form-delete" value="Apagar">
+        <input type="button" class="btn btn" data-bs-dismiss="modal" value="Cancel" id="cancelButton">
+        <input type="submit" class="btn btn-danger" form="form-delete" value="Delete">
     @endslot
 @endComponent
 
@@ -208,10 +208,6 @@
 
         let modalCreate = document.getElementById('modalCreate');
         let $modalCreate = $(modalCreate);
-        // clean form when modal opens
-        $modalCreate.on('show.bs.modal', function () {
-            $(this).find('form').trigger('reset');
-        });
         let formCreate = document.getElementById('form-create');
         formCreate.addEventListener('submit', i => {
             i.preventDefault();

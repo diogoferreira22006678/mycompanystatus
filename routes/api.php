@@ -80,9 +80,8 @@ Route::get('/select/reports', 'SelectController_api@reports');
 // Route to create Reports
 Route::post('/create/reports', 'ReportController@reportsCreate')->name('reports.createReports');
 
-// Route to update Reports
-Route::post('/update/reports', 'ReportController@reportsUpdate')->name('reports.editReports');
-
 // Route to delete Reports
 Route::post('/delete/reports', 'ReportController@reportsDelete')->name('reports.deleteReports');
 
+// Route to get a excel 
+Route::get('/get/excel', 'ReportController@reportsGetExcel')->name('download-excel');
