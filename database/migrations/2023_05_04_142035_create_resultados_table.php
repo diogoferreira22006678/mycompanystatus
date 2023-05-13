@@ -25,6 +25,8 @@ return new class extends Migration
             $table->decimal('resultado_imparidade_dividas_receber', 15, 2);
             $table->decimal('resultado_provisoes', 15, 2);
             $table->decimal('resultado_imparidade_investimentos', 15, 2);
+            $table->decimal('resultado_outras_imparidades', 15, 2);
+            $table->decimal('resultado_aumento_reducoes_justo_valor', 15, 2);
             $table->decimal('resultado_outros_rendimentos_ganhos', 15, 2);
             $table->decimal('resultado_outros_gastos_perdas', 15, 2);
             $table->decimal('resultado_antes_depreciacoes', 15, 2);
