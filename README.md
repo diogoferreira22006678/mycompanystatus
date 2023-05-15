@@ -1,6 +1,6 @@
 # MyCompanyStatus
 
-Welcome to MyCompanyStatus, a Laravel-based application developed for the discipline of Gestão Financeiro in the Information Management course at Lusófona University. This application is designed to provide companies with comprehensive feedback when they close their accounts at the end of the year. It offers detailed explanations and visual graphs to present the results, helping companies gain insights into their financial status.
+Welcome to MyCompanyStatus, a Laravel-based application developed for the discipline of Finance Management in the Information Management course at Lusófona University. This application is designed to provide companies with comprehensive feedback when they close their accounts at the end of the year. It offers detailed explanations and visual graphs to present the results, helping companies gain insights into their financial status.
 
 ## Table of Contents
 
