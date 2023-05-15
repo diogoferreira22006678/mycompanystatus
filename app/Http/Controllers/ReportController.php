@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Excel;
 use App\Models\Ativo;
 use App\Models\AtivoCorrente;
+use App\Models\AtivoNaoCorrente;
 use App\Models\Report;
 use App\Models\Balance;
 use App\Models\Passivo;
@@ -12,6 +13,7 @@ use App\Models\Resultado;
 use Illuminate\Http\Request;
 use App\Models\CapitalProprio;
 use App\Models\PassivoCorrente;
+use App\Models\PassivoNaoCorrente;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -110,7 +112,122 @@ class ReportController extends Controller
         $data['passivoscorrentes_outrascontasapagar'] = $sheet->getCell('I46')->getValue();
         $data['passivoscorrentes_outros'] = $sheet->getCell('I47')->getValue();
 
-        dd($data);
+        $report = new Report();
+
+        $report->report_year = $report_year;
+        $report->company_id = $request->company_id;
+
+        $report->save();
+
+        $resultado = new Resultado();
+
+        $resultado->report_id = $report->report_id;
+        $resultado->resultado_vsp = $data['resultado_vsp'];
+        $resultado->resultado_sub_exp = $data['resultado_sub_exp'];
+        $resultado->resultado_ganhos_perdas_imputados = $data['resultado_ganhos_perdas_imputados'];
+        $resultado->resultado_variacao_inventarios_producao = $data['resultado_variacao_inventarios_producao'];
+        $resultado->resultado_trabalhos_proprios = $data['resultado_trabalhos_proprios'];
+        $resultado->resultado_custo_mercadorias_vendidas = $data['resultado_custo_mercadorias_vendidas'];
+        $resultado->resultado_fornecimentos_servicos_externos = $data['resultado_fornecimentos_servicos_externos'];
+        $resultado->resultado_gastos_pessoal = $data['resultado_gastos_pessoal'];
+        $resultado->resultado_imparidade_inventarios = $data['resultado_imparidade_inventarios'];
+        $resultado->resultado_imparidade_dividas_receber = $data['resultado_imparidade_dividas_receber'];
+        $resultado->resultado_provisoes = $data['resultado_provisoes'];
+        $resultado->resultado_imparidade_investimentos = $data['resultado_imparidade_investimentos'];
+        $resultado->resultado_outras_imparidades = $data['resultado_outras_imparidades'];
+        $resultado->resultado_aumento_reducoes_justo_valor = $data['resultado_aumento_reducoes_justo_valor'];
+        $resultado->resultado_outros_rendimentos_ganhos = $data['resultado_outros_rendimentos_ganhos'];
+        $resultado->resultado_outros_gastos_perdas = $data['resultado_outros_gastos_perdas'];
+        $resultado->resultado_antes_depreciacoes = $data['resultado_antes_depreciacoes'];
+        $resultado->resultado_gastos_reversoes_depreciacoes = $data['resultado_gastos_reversoes_depreciacoes'];
+        $resultado->resultado_imparidade_investimentos_depreciaveis = $data['resultado_imparidade_investimentos_depreciaveis'];
+        $resultado->resultado_operacional_antes_gastos = $data['resultado_operacional_antes_gastos'];
+        $resultado->resultado_juros_rendimentos_similares = $data['resultado_juros_rendimentos_similares'];
+        $resultado->resultado_juros_gastos_similares = $data['resultado_juros_gastos_similares'];
+        $resultado->resultado_antes_impostos = $data['resultado_antes_impostos'];
+        $resultado->resultado_imposto_rendimento = $data['resultado_imposto_rendimento'];
+        $resultado->resultado_liquido = $data['resultado_liquido'];
+
+        $resultado->save();
+
+        $balance = new Balance();
+
+        $balance->report_id = $report->report_id;
+
+        $balance->save();
+
+        $ativo = new Ativo();
+
+        $ativo->balanco_id = $balance->balance_id;
+
+        $ativo->save();
+
+        $passivo = new Passivo();
+
+        $passivo->balanco_id = $balance->balance_id;
+
+        $passivo->save();
+
+        $capitalproprio = new CapitalProprio();
+
+        $capitalproprio->balanco_id = $balance->balance_id;
+        $capitalproprio->capitaisproprios_capitalrealizado = $data['capitaisproprios_capitalrealizado'];
+        $capitalproprio->capitaisproprios_outrosinstrumentoscapitalproprio = $data['capitaisproprios_outrosinstrumentoscapitalproprio'];
+        $capitalproprio->capitaisproprios_reservaslegais = $data['capitaisproprios_reservaslegais'];
+        $capitalproprio->capitaisproprios_resultadostransitados = $data['capitaisproprios_resultadostransitados'];
+        $capitalproprio->capitaisproprios_outrasvariacoescapitalproprio = $data['capitaisproprios_outrasvariacoescapitalproprio'];
+
+        $capitalproprio->save();
+
+        $passivocorrente = new PassivoCorrente();
+
+        $passivocorrente->passivo_id = $passivo->passivo_id;
+        $passivocorrente->passivoscorrentes_fornecedores = $data['passivoscorrentes_fornecedores'];
+        $passivocorrente->passivoscorrentes_estadoeoutrosentespublicos = $data['passivoscorrentes_estadoeoutrosentespublicos'];
+        $passivocorrente->passivoscorrentes_accionistas_socios = $data['passivoscorrentes_accionistas_socios'];
+        $passivocorrente->passivoscorrentes_financiamentosobtidos = $data['passivoscorrentes_financiamentosobtidos'];
+        $passivocorrente->passivoscorrentes_outrascontasapagar = $data['passivoscorrentes_outrascontasapagar'];
+        $passivocorrente->passivoscorrentes_outros = $data['passivoscorrentes_outros'];
+
+        $passivocorrente->save();
+
+        $passivonaocorrente = new PassivoNaoCorrente();
+
+        $passivonaocorrente->passivo_id = $passivo->passivo_id;
+        $passivonaocorrente->passivosnaocorrentes_provisoes = $data['passivosnaocorrentes_provisoes'];
+        $passivonaocorrente->passivosnaocorrentes_financiamentosobtidos = $data['passivosnaocorrentes_financiamentosobtidos'];
+        $passivonaocorrente->passivosnaocorrentes_outros = $data['passivosnaocorrentes_outros'];
+
+        $passivonaocorrente->save();
+
+        $ativocorrente = new AtivoCorrente();
+
+        $ativocorrente->ativo_id = $ativo->ativo_id;
+        $ativocorrente->ativoscorrentes_inventarios = $data['ativoscorrentes_inventarios'];
+        $ativocorrente->ativoscorrentes_clientes = $data['ativoscorrentes_clientes'];
+        $ativocorrente->ativoscorrentes_adiantamentosafornecedores = $data['ativoscorrentes_adiantamentosafornecedores'];
+        $ativocorrente->ativoscorrentes_estadoeoutrosentespublicos = $data['ativoscorrentes_estadoeoutrosentespublicos'];
+        $ativocorrente->ativoscorrentes_outrascontasareceber = $data['ativoscorrentes_outrascontasareceber'];
+        $ativocorrente->ativoscorrentes_diferimentos = $data['ativoscorrentes_diferimentos'];
+        $ativocorrente->ativoscorrentes_outrosativoscorrentes = $data['ativoscorrentes_outrosativoscorrentes'];
+        $ativocorrente->ativoscorrentes_caixaedepositosbancarios = $data['ativoscorrentes_caixaedepositosbancarios'];
+
+        $ativocorrente->save();
+
+        $ativonaocorrente = new AtivoNaoCorrente();
+
+        $ativonaocorrente->ativo_id = $ativo->ativo_id;
+        $ativonaocorrente->ativonaocorrente_ativofixo = $data['ativonaocorrente_ativofixo'];
+        $ativonaocorrente->ativonaocorrente_goodwill = $data['ativonaocorrente_goodwill'];
+        $ativonaocorrente->ativonaocorrente_ativointangivel = $data['ativonaocorrente_ativointangivel'];
+        $ativonaocorrente->ativonaocorrente_outros = $data['ativonaocorrente_outros'];
+
+        $ativonaocorrente->save();
+
+        return response()->json([
+            "message" => "report record created"
+        ], 201);
+
     }
 
     public function reportsDelete(Request $request){
@@ -134,9 +251,14 @@ class ReportController extends Controller
 
         Resultado::where('report_id', $report_id)->delete();
 
-        PassivoCorrente::whereIn('balanco_id', $balance_id)->delete();
+        PassivoCorrente::whereIn('passivo_id', $passivo_id)->delete();
 
-        AtivoCorrente::whereIn('balanco_id', $balance_id)->delete();
+        PassivoNaoCorrente::whereIn('passivo_id', $passivo_id)->delete();
+
+        AtivoCorrente::whereIn('ativo_id', $ativo_id)->delete();
+
+        AtivoNaoCorrente::whereIn('ativo_id', $ativo_id)->delete();
+    
 
         return response()->json([
             "message" => "report record deleted"

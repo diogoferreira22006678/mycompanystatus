@@ -55,7 +55,7 @@
  @component('_components.cardModal',[
     'id' => 'addModal',
     'class' => 'modal-success',
-    'title' => 'Create Company',
+    'title' => 'Create Report',
     'close' => true,
  ])
     <form id="form-create">
@@ -79,7 +79,7 @@
 @component('_components.cardModal', [
 			'id' => 'modalDelete',
 			'class' => 'modal-success',
-			'title' => 'Delete Company',
+			'title' => 'Delete Report',
 			'close' => true
 		])
     <form id="form-delete" >
