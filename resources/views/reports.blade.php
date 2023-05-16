@@ -10,46 +10,44 @@
 
 @section('body')
 
-    <div class="container mt-3">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Your <b>{{ $company->company_name }}</b> Reports</h2>
-                    </div>
-                    <div class="col-sm-6">
-                        <a id="addButton" data-bs-target="#addModal" class="btn" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Report</span></a>
-                    </div>
+<div class="container mt-3">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Your <b>{{ $company->company_name }} Reports</b></h2>
+                </div>
+                <div class="col-sm-6">
+                    <a id="addButton" data-bs-target="#addModal" class="btn" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Report</span></a>
                 </div>
             </div>
-
-
-            <div class="table-responsive">
-            <table id="dt" datatable ajax-url="/api/table/reports/{{ $company->company_id }}" ajax-id="company_id" datatable-hide="-1">
-                <thead>
-                <tr>
-                            <th dt-name="report_id">Id</th>
-                            <th dt-name="company_name">Company</th>
-                            <th dt-name="report_year">Year</th>
-                            <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            </div>
-            <script id="dt-template" type="text/template">
-                <tr option-key="${company_id}">
-                    <td>${report_id}</td>
-                    <td>${$company->company_name}</td>
-                    <td>${report_year}</td> 
-                    <td id="optionFilms">
-                        <a id="optionEdit" option="edit" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a id="optionDelete" option="delete" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
-        </script>
         </div>
+
+
+        <div class="table-responsive">
+        <table id="dt" datatable ajax-url="/api/table/reports/{{ $company->company_id }}" ajax-id="report_id" datatable-hide="-1">
+            <thead>
+            <tr>
+                        <th dt-name="report_id">Id</th>
+                        <th dt-name="report_year">Year</th>
+                        <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        </div>
+        <script id="dt-template" type="text/template">
+            <tr option-key="${report_id}">
+                <td>${report_id}</td>
+                <td>${report_year}</td>
+                <td id="optionFilms">
+                    <a id="optionView" option="view" class="view" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View">&#xE417;</i></a>
+                    <a id="optionDelete" option="delete" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+            </tr>
+    </script>
     </div>
+</div>
 
  <!-- Create Modal HTML -->
  @component('_components.cardModal',[
@@ -87,13 +85,14 @@
         <div class="modal-body">
             <p>Do you really want to delete this Report?</p>
             <div class="form-group">
-                <label>Company</label>
+                <label>Company:</label>
                 <input type="text" class="form-control" name="company_name" disabled>
             </div>
             <div class="form-group">
-                <label>Year</label>
+                <label>Year:</label>
                 <input type="text" class="form-control" name="report_year" disabled>
             </div>
+            <br>
                 <p class="text-danger"><small>This action cannot be undone.</small></p>
         </div>
 	</form>
@@ -127,13 +126,13 @@
                 success : function(response) {
                     $('#addModal').modal('hide');    
                 	dt.refresh();
-                    toastr.success('Company Added Successfully!');
+                    toastr.success('Report Added Successfully!');
                     // Clear form fields
                     $('#addModal').find('input').val('');
                 },
                 error : function(error) {
                     console.log(error);
-                    alert('Error Adding Company!' + error.statusText);
+                    alert('Error Adding Report!' + error.statusText);
                 } 
             });
         });
@@ -151,11 +150,11 @@
                     console.log(response);
                     $('#modalDelete').modal('hide');
                     dt.refresh();
-                    toastr.success('Company Deleted Successfully!');
+                    toastr.success('Report Deleted Successfully!');
                 },
                 error : function(error) {
                     console.log(error);
-                    alert('Error Deleting Company!' + error.statusText);
+                    alert('Error Deleting Report!' + error.statusText);
                 } 
             });
         });
@@ -168,6 +167,7 @@
             case 'delete': {
                 
             Utils.fill_form(modalDelete, object, true);
+            modalDelete.querySelector('[name="company_name"]').value = object.company.company_name;
             $modalDelete.modal('show');
             break;
             }

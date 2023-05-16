@@ -21,9 +21,6 @@
             <button type="submit" class="btn btn-primary">Get Report</button>
         </form>
     </div>
-    <div>
-        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ route('download-excel') }}"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Download Excel</a>
-        <a class="btn btn-success btn-sm d-none d-sm-inline-block text-white" role="button" type="button" data-bs-toggle="modal" data-bs-target="#modal-option"><i class="fas fa-bolt fa-sm text-white-50"></i>&nbsp;Generate Report</a>    </div>
 </div>    
 <div class="row">
     <div class="col-md-6 col-xl-3 mb-4">

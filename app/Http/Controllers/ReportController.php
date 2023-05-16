@@ -40,7 +40,7 @@ class ReportController extends Controller
         // RESULTADO
         $data['resultado_vsp'] = $sheet->getCell('B8')->getValue();
         $data['resultado_sub_exp'] = $sheet->getCell('B9')->getValue();
-        $data['resultado_ganhos_perdas_imputados '] = $sheet->getCell('B10')->getValue();
+        $data['resultado_ganhos_perdas_imputados'] = $sheet->getCell('B10')->getValue();
         $data['resultado_variacao_inventarios_producao'] = $sheet->getCell('B11')->getValue();
         $data['resultado_trabalhos_proprios'] = $sheet->getCell('B12')->getValue();
         $data['resultado_custo_mercadorias_vendidas'] = $sheet->getCell('B13')->getValue();
@@ -54,15 +54,15 @@ class ReportController extends Controller
         $data['resultado_aumento_reducoes_justo_valor'] = $sheet->getCell('B21')->getValue();
         $data['resultado_outros_rendimentos_ganhos'] = $sheet->getCell('B22')->getValue();
         $data['resultado_outros_gastos_perdas'] = $sheet->getCell('B23')->getValue();
-        $data['resultado_antes_depreciacoes'] = $sheet->getCell('B24')->getValue();
+        $data['resultado_antes_depreciacoes'] = $sheet->getCell('B24')->getCalculatedValue();
         $data['resultado_gastos_reversoes_depreciacoes'] = $sheet->getCell('B25')->getValue();
         $data['resultado_imparidade_investimentos_depreciaveis'] = $sheet->getCell('B26')->getValue();
-        $data['resultado_operacional_antes_gastos'] = $sheet->getCell('B27')->getValue();
+        $data['resultado_operacional_antes_gastos'] = $sheet->getCell('B27')->getCalculatedValue();
         $data['resultado_juros_rendimentos_similares'] = $sheet->getCell('B28')->getValue();
         $data['resultado_juros_gastos_similares'] = $sheet->getCell('B29')->getValue();
-        $data['resultado_antes_impostos'] = $sheet->getCell('B30')->getValue();
+        $data['resultado_antes_impostos'] = $sheet->getCell('B30')->getCalculatedValue();
         $data['resultado_imposto_rendimento'] = $sheet->getCell('B31')->getValue();
-        $data['resultado_liquido'] = $sheet->getCell('B32')->getValue();
+        $data['resultado_liquido'] = $sheet->getCell('B32')->getCalculatedValue();
         
 
         // BALANÇO
@@ -158,19 +158,19 @@ class ReportController extends Controller
 
         $ativo = new Ativo();
 
-        $ativo->balanco_id = $balance->balance_id;
+        $ativo->balanco_id = $balance->balanco_id;
 
         $ativo->save();
 
         $passivo = new Passivo();
 
-        $passivo->balanco_id = $balance->balance_id;
+        $passivo->balanco_id = $balance->balanco_id;
 
         $passivo->save();
 
         $capitalproprio = new CapitalProprio();
 
-        $capitalproprio->balanco_id = $balance->balance_id;
+        $capitalproprio->balanco_id = $balance->balanco_id;
         $capitalproprio->capitaisproprios_capitalrealizado = $data['capitaisproprios_capitalrealizado'];
         $capitalproprio->capitaisproprios_outrosinstrumentoscapitalproprio = $data['capitaisproprios_outrosinstrumentoscapitalproprio'];
         $capitalproprio->capitaisproprios_reservaslegais = $data['capitaisproprios_reservaslegais'];
@@ -237,15 +237,15 @@ class ReportController extends Controller
         Report::where('report_id', $report_id)->delete();
 
         // Get Balance where report_id = $report_id
-        $balance_id = Balance::where('report_id', $report_id)->pluck('balance_id');
-        $ativo_id = Balance::where('balance_id', $balance_id)->pluck('ativo_id');
-        $passivo_id = Balance::where('balance_id', $balance_id)->pluck('passivo_id');
+        $balanco_id = Balance::where('report_id', $report_id)->pluck('balanco_id');
+        $ativo_id = Ativo::where('balanco_id', $balanco_id)->pluck('ativo_id');
+        $passivo_id = Passivo::where('balanco_id', $balanco_id)->pluck('passivo_id');
 
-        Ativo::whereIn('balanco_id', $balance_id)->delete();
+        Ativo::whereIn('balanco_id', $balanco_id)->delete();
 
-        Passivo::whereIn('balanco_id', $balance_id)->delete();
+        Passivo::whereIn('balanco_id', $balanco_id)->delete();
 
-        CapitalProprio::whereIn('balanco_id', $balance_id)->delete();        
+        CapitalProprio::whereIn('balanco_id', $balanco_id)->delete();        
 
         Balance::where('report_id', $report_id)->delete();
 

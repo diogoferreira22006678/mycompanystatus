@@ -297,5 +297,16 @@
         }
         });
 
+         let form = document.getElementById('company-form');
+        form.addEventListener('submit', i => {
+            i.preventDefault();
+
+            $company_id = form.elements['company_id'].value;
+
+            // Redirect the user to Url /{company_id}/reports but always root
+            window.location.href = "{{ url('/') }}/" + $company_id + "/reports";
+        }); 
+
+
     </script>
 @endsection

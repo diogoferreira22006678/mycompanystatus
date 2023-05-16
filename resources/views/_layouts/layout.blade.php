@@ -65,7 +65,7 @@
                 <div id="content">
                     <nav class="navbar navbar-expand bg-white shadow mb-4 topbar static-top">
                         <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>                            
-                            @if($title == 'Dashboard' || $title == 'Reports')
+                            @if($title == 'Reports')
                                 <div class="navbar-collapse collapse ">
                                     <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0 w-100">
                                         <form id="company-form">
@@ -83,6 +83,7 @@
                                             <input type="submit" class="btn btn-primary" form="company-form" value="Go">
                                         </form>
                                         <div class="d-none d-sm-block topbar-divider"></div>
+                                        <a id="download-excel" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{{ route('download-excel') }}"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Download Excel</a>
                                     </ul>
                                 </div>  
                             @endif

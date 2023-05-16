@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Company;
 use App\Models\User;
+use App\Models\Report;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -69,6 +70,24 @@ class CompanyController extends Controller
         [
         'company' => $company,
         'user' => $user
+        ]);
+    }
+
+    public function getDashboardCompany($id_company,$report_id){
+        // Get a company
+        $company = Company::where('company_id', $id_company)->first();
+        $user = User::getCurrent();
+        if($report_id == null){
+            $report = Report::where('company_id', $id_company)->first();
+        }else{
+            $report = Report::where('report_id', $report_id)->first();
+        }
+        
+        return view('dashboard', 
+        [
+        'company' => $company,
+        'user' => $user,
+        'report' => $report
         ]);
     }
 }
