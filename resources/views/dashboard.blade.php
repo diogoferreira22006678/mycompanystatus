@@ -273,5 +273,4 @@
     @slot('footer')
     @endslot
 @endComponent
-
 @endsection

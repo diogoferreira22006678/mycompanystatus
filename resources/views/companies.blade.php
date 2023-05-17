@@ -297,7 +297,7 @@
         }
         });
 
-         let form = document.getElementById('company-form');
+        let form = document.getElementById('company-form');
         form.addEventListener('submit', i => {
             i.preventDefault();
 

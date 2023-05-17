@@ -32,11 +32,6 @@
                         @else
                         <li class="nav-item"><a class="nav-link" href="{{ route('homePage') }}"><i class="far fa-user-circle"></i><span>Home</span></a></li>
                         @endif
-                        @if($title == 'Dashboard')
-                        <li class="nav-item"><a class="nav-link active" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                        @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                        @endif
                         @if($title == 'Companies')
                         <li class="nav-item"><a class="nav-link active" href="{{ route('companies') }}"><i class="fas fa-building"></i><span>My Companies</span></a></li>
                         @else

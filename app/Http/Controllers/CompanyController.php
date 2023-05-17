@@ -77,12 +77,9 @@ class CompanyController extends Controller
         // Get a company
         $company = Company::where('company_id', $id_company)->first();
         $user = User::getCurrent();
-        if($report_id == null){
-            $report = Report::where('company_id', $id_company)->first();
-        }else{
-            $report = Report::where('report_id', $report_id)->first();
-        }
         
+        $report = Report::where('report_id', $report_id)->first();
+
         return view('dashboard', 
         [
         'company' => $company,

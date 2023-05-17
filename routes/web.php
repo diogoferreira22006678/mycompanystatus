@@ -42,10 +42,6 @@ Route::middleware('perms')->group(function(){
         return view('homepage');
     })->name('homePage');
 
-    Route::get('/dashboard',function(){
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::get('profile', function(){
         return view('profile');
     })->name('profile');
@@ -64,7 +60,7 @@ Route::middleware('perms')->group(function(){
 
     Route::get('/{id_company}/reports', 'CompanyController@getCompany');
 
-    Route::get('/dashboard/{id_company}', 'CompanyController@getDashboardCompany');
+    Route::get('/dashboard/{id_company}/reports/{report_id}', 'CompanyController@getDashboardCompany');
     
     Route::get('/reports/public', function(){
         return view('publicReports');
