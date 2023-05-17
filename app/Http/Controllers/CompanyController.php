@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Balance;
 use App\Models\User;
 use App\Models\Report;
 use App\Models\Company;
+use App\Models\Resultado;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -77,7 +80,6 @@ class CompanyController extends Controller
         // Get a company
         $company = Company::where('company_id', $id_company)->first();
         $user = User::getCurrent();
-        
         $report = Report::where('report_id', $report_id)->first();
 
         return view('dashboard', 
