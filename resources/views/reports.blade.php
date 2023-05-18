@@ -41,7 +41,7 @@
                 <td>${report_id}</td>
                 <td>${report_year}</td>
                 <td id="optionFilms">
-                    <a id="optionView" href="{{ url('/') }}/dashboard/{{ $company->company_id }}/reports/${report_id}" option="view" class="view" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View">&#xE417;</i></a>
+                    <a id="optionView" href="{{ url('/') }}/dashboard/{{ $company->company_id }}/reports/${report_year}" option="view" class="view" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="View">&#xE417;</i></a>
                     <a id="optionDelete" option="delete" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                 </td>
             </tr>

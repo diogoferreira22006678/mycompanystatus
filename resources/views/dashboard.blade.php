@@ -2,23 +2,24 @@
  ['title' => 'Dashboard'])
 @section('body')
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Dashboard</h3>
+    <h3 class="text-dark mb-0">{{ $company->company_name }} - {{ $report->report_year }}</h3>
     <!-- select the year using a dropdown with the years bootstrap class -->
     <div class="dropdown me-2">
-        <form>
+        <form id = year-form>
             @csrf
+            
             @component('_components.formSelect', [
                 'required' => true,
                 'class' => '',
                 'attributes' => "ajax-url='/api/select/years/$company->company_id'",
-                'name' => 'company_id',
+                'name' => 'year',
                 'placeholder' => 'Year',
                 'array' => [],
                 'key' => 'id',
                 'value' => 'title'
             ])
             @endcomponent
-            <button type="submit" class="btn btn-primary">Get Report</button>
+            <button type="submit" form="year-form" class="btn btn-primary">Get Report</button>
         </form>
     </div>
 </div>    
@@ -275,3 +276,20 @@
 @endComponent
 @endsection
 
+@section('scripts')
+<script>
+
+    let form = document.getElementById('year-form');
+    form.addEventListener('submit', i => {
+        i.preventDefault();
+
+        let company_id = @json($company->company_id);
+        let year = form.elements['year'].value;
+
+
+        // Redirect the user to Url /{company_id}/reports but always root
+        window.location.href = "{{ url('/') }}" + "/dashboard/" + company_id + "/reports/" + year;
+    }); 
+
+</script>
+@endsection

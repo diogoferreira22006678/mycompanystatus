@@ -76,11 +76,11 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function getDashboardCompany($id_company,$report_id){
+    public function getDashboardCompany($id_company,$year){
         // Get a company
         $company = Company::where('company_id', $id_company)->first();
         $user = User::getCurrent();
-        $report = Report::where('report_id', $report_id)->first();
+        $report = Report::where('company_id', $id_company)->where('report_year', $year)->first();
 
         return view('dashboard', 
         [

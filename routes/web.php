@@ -60,7 +60,7 @@ Route::middleware('perms')->group(function(){
 
     Route::get('/{id_company}/reports', 'CompanyController@getCompany');
 
-    Route::get('/dashboard/{id_company}/reports/{report_id}', 'CompanyController@getDashboardCompany');
+    Route::get('/dashboard/{id_company}/reports/{year}', 'CompanyController@getDashboardCompany');
     
     Route::get('/reports/public', function(){
         return view('publicReports');
