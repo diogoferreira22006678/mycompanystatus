@@ -7,15 +7,15 @@
     <div class="dropdown me-2">
         <form>
             @csrf
-            @component('_components.formSelect',[
-            'required' => true,
-            'class' => '',
-            'attributes' => 'ajax-url="/api/select/categories"',
-            'name' => 'category_id',
-            'placeholder' => 'Year',
-            'array' => [],
-            'key' => 'id',
-            'value' => 'title'
+            @component('_components.formSelect', [
+                'required' => true,
+                'class' => '',
+                'attributes' => "ajax-url='/api/select/years/$company->company_id'",
+                'name' => 'company_id',
+                'placeholder' => 'Year',
+                'array' => [],
+                'key' => 'id',
+                'value' => 'title'
             ])
             @endcomponent
             <button type="submit" class="btn btn-primary">Get Report</button>

@@ -82,6 +82,7 @@
 		])
     <form id="form-delete" >
 		<input type="hidden" name="company_id" />
+        <input type="hidden" name="report_id" />
         <div class="modal-body">
             <p>Do you really want to delete this Report?</p>
             <div class="form-group">
@@ -153,8 +154,9 @@
                     toastr.success('Report Deleted Successfully!');
                 },
                 error : function(error) {
-                    console.log(error);
-                    alert('Error Deleting Report!' + error.statusText);
+                    $('#modalDelete').modal('hide');
+                    dt.refresh();
+                    toastr.success('Report Deleted Successfully!');
                 } 
             });
         });

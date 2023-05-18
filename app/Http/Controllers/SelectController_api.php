@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Report;
 use App\Models\Sector;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -32,5 +33,11 @@ class SelectController_api extends Controller{
     // Select all the companies from a user
     $query = Company::select('company_id as id', 'company_name as text')->where('user_id', User::getCurrent()->user_id);
     return $this->search($query, 'company_name', $request);
+  }
+
+  public function years(Request $request,$company_id){
+
+    $query = Report::select('report_year as id', 'report_year as text')->where('company_id', $company_id)->distinct();
+    return $this->search($query, 'report_year', $request);
   }
 }

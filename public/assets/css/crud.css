@@ -291,13 +291,13 @@ body {
 
   #download-excel:hover{
     /* make it darker */
-    background: rgb(33, 130, 33);
-    border: rgb(33, 130, 33);
+    background: #175f28!important;
+    border: #175f28!important;
   }
 
   #download-excel{
     display: flex !important;
     align-items: center;
-    background: rgb(43, 170, 43);
-    border: rgb(43, 170, 43);
+    background: #23913c!important;
+    border: #23913c!important;
   }

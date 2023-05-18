@@ -237,9 +237,9 @@ class ReportController extends Controller
         Report::where('report_id', $report_id)->delete();
 
         // Get Balance where report_id = $report_id
-        $balanco_id = Balance::where('report_id', $report_id)->pluck('balanco_id');
-        $ativo_id = Ativo::where('balanco_id', $balanco_id)->pluck('ativo_id');
-        $passivo_id = Passivo::where('balanco_id', $balanco_id)->pluck('passivo_id');
+        $balanco_id = Balance::where('report_id', $report_id)->first()->pluck('balanco_id');
+        $ativo_id = Ativo::where('balanco_id', $balanco_id)->first()->pluck('ativo_id');
+        $passivo_id = Passivo::where('balanco_id', $balanco_id)->first()->pluck('passivo_id');
 
         Ativo::whereIn('balanco_id', $balanco_id)->delete();
 

@@ -85,3 +85,6 @@ Route::post('/delete/reports', 'ReportController@reportsDelete')->name('reports.
 
 // Route to get a excel 
 Route::get('/get/excel', 'ReportController@reportsGetExcel')->name('download-excel');
+
+//Route get company report years select
+Route::get('/select/years/{id}', 'SelectController_api@years');
