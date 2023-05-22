@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Balance;
 use App\Models\User;
+use App\Models\Ativo;
+use App\Models\AtivoCorrente;
+use App\Models\AtivoNaoCorrente;
 use App\Models\Report;
+use App\Models\Balance;
 use App\Models\Company;
+use App\Models\Passivo;
 use App\Models\Resultado;
 use Illuminate\Http\Request;
+use App\Models\CapitalProprio;
+use App\Models\PassivoCorrente;
+use App\Models\PassivoNaoCorrente;
 
 class CompanyController extends Controller
 {
@@ -81,6 +88,17 @@ class CompanyController extends Controller
         $company = Company::where('company_id', $id_company)->first();
         $user = User::getCurrent();
         $report = Report::where('company_id', $id_company)->where('report_year', $year)->first();
+        $balance = Balance::where('report_id', $report->report_id)->first();
+        $result = Resultado::where('report_id', $report->report_id)->first();
+        $capital_proprio = CapitalProprio::where('balanco_id', $balance->balanco_id)->first();
+        $ativo = Ativo::where('balanco_id', $balance->balanco_id)->first();
+        $passivo = Passivo::where('balanco_id', $balance->balanco_id)->first();
+        $ativo_corrente = AtivoCorrente::where('ativo_id', $ativo->ativo_id)->first();
+        $ativo_nao_corrente = AtivoNaoCorrente::where('ativo_id', $ativo->ativo_id)->first();
+        $passivo_corrente = PassivoCorrente::where('passivo_id', $passivo->passivo_id)->first();
+        $passivo_nao_corrente = PassivoNaoCorrente::where('passivo_id', $passivo->passivo_id)->first();
+        
+        
 
         return view('dashboard', 
         [
