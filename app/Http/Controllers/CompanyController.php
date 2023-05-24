@@ -139,6 +139,12 @@ class CompanyController extends Controller
         $result->resultado_liquido
         );
 
+        $total_passivo_nao_corrente = (
+        $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos +
+        $passivo_nao_corrente->passivosnaocorrentes_provisoes +
+        $passivo_nao_corrente->passivosnaocorrentes_outros );
+
+
         $total_ativo_nao_corrente = (
         $ativo_nao_corrente->ativonaocorrente_ativofixo +
         $ativo_nao_corrente->ativonaocorrente_goodwill +
@@ -157,13 +163,40 @@ class CompanyController extends Controller
         $ratio_autonomia_financeira = round($ratio_autonomia_financeira, 2) . '%';
 
         // Endividamento = passivo total / ativo total
-
-        $ratio_endividamento = ($total_passivo_corrente + $passivo_nao_corrente->passivonaocorrente_passivofinanceiro) / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
+        $ratio_endividamento = (($total_passivo_corrente + $total_passivo_nao_corrente) / ($total_ativo_corrente + $total_ativo_nao_corrente)) * 100;
         $ratio_endividamento = round($ratio_endividamento, 2) . '%';
 
-        dd($ratio_endividamento);
+        // Solvabilidade = capital proprio / passivo total
+        $ratio_solvabilidade = $total_capital_proprio / ($total_passivo_corrente + $total_passivo_nao_corrente) * 100;
+        $ratio_solvabilidade = round($ratio_solvabilidade, 2) . '%';
 
+        // Cobertura do AnC = (capital proprio + passivo nao corrente) / activo nao corrente
+
+        $ratio_cobertura_anc = ($total_capital_proprio + $total_passivo_nao_corrente) / $total_ativo_nao_corrente * 100;
+        $ratio_cobertura_anc = round($ratio_cobertura_anc, 2) . '%';
+
+        // Peso do passivo remunerado = (passivo corrente + passivo nao corrente) / passivo total
+
+        $ratio_peso_passivo_remunerado = ($passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos) / ($total_passivo_corrente + $total_passivo_nao_corrente) * 100;
+        $ratio_peso_passivo_remunerado = round($ratio_peso_passivo_remunerado, 2) . '%';
+
+        // Custos dos financiamentos obtidos = resultados->juros_gastos_similares_suportados / ($passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos)
+        $custos_do_financiamento_obtido = $result->resultado_juros_gastos_similares / ($passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos) * 100;
+        $custos_do_financiamento_obtido = round($custos_do_financiamento_obtido, 2) . '%';
         
+        // Pressão financeira = fastos de financeamento / EBITDA
+        $ratio_pressao_financeira = $result->resultado_juros_gastos_similares / $result->resultado_antes_depreciacoes * 100;
+        $ratio_pressao_financeira = round($ratio_pressao_financeira, 2) . '%';
+
+        // Rácio prazo médio de recebimento = (clientes + outros devedores) / (vendas e serviços prestados + IVA / 365)
+        $ratio_prazo_medio_recebimento = ($ativo_corrente->ativoscorrentes_clientes) / ((($result->resultado_vsp + $result->resultado_variacao_inventarios_producao) * 1.23) / 365);
+        $ratio_prazo_medio_recebimento = round($ratio_prazo_medio_recebimento, 2) . ' dias';
+        
+        // Rácio prazo médio de pagamento = (fornecedores + outras contas a pagar) / (compras e serviços prestados + IVA / 365)
+        $ratio_prazo_medio_pagamento = ($passivo_corrente->passivoscorrentes_fornecedores) / ((($result->re + $result->resultado_variacao_inventarios_producao) * 1.23) / 365);
+        $ratio_prazo_medio_pagamento = round($ratio_prazo_medio_pagamento, 2) . ' dias';
+
+        dd($ratio_prazo_medio_pagamento);
 
         return view('dashboard', 
         [
