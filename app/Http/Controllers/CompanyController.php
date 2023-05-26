@@ -97,20 +97,10 @@ class CompanyController extends Controller
         $ativo_nao_corrente = AtivoNaoCorrente::where('ativo_id', $ativo->ativo_id)->first();
         $passivo_corrente = PassivoCorrente::where('passivo_id', $passivo->passivo_id)->first();
         $passivo_nao_corrente = PassivoNaoCorrente::where('passivo_id', $passivo->passivo_id)->first();
+        $reportFromYearBefore = Report::where('company_id', $id_company)->where('report_year', $year-1)->first();
 
-        // Set a circular graph to see how much of the company is owned by the user and how much is owned by bank or other investors
         $total_capital_proprio = $capital_proprio->capitaisproprios_capitalrealizado + $capital_proprio->capitaisproprios_outrosinstrumentoscapitalproprio + $capital_proprio->capitaisproprios_reservaslegais + $capital_proprio->capital_proprio_resultados_transitados + $capital_proprio->capitaisproprios_resultadostransitados + $capital_proprio->capitaisproprios_outrasvariacoescapitalproprio;
         $total_passivo_corrente = $passivo_corrente->passivoscorrentes_fornecedores + $passivo_corrente->passivoscorrentes_estadoeoutrosentespublicos + $passivo_corrente->passivoscorrentes_accionistas_socios + $passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_corrente->passivoscorrentes_outrascontasapagar + $passivo_corrente->passivoscorrentes_outros;
-
-        // Set the percentage of the company owned by the user
-        $percentage_user = ($total_capital_proprio - $total_passivo_corrente) / $total_capital_proprio * 100;
-        $percentage_bank = $total_passivo_corrente / $total_capital_proprio * 100;
-
-        // Set the graph using graph.js
-        $dataPoints = array(
-            array("label"=> "User", "y"=> $percentage_user),
-            array("label"=> "Bank", "y"=> $percentage_bank)
-        );
 
         $total_ativo_corrente = ( 
         $ativo_corrente->ativoscorrentes_inventarios +
@@ -150,6 +140,18 @@ class CompanyController extends Controller
         $ativo_nao_corrente->ativonaocorrente_goodwill +
         $ativo_nao_corrente->ativonaocorrente_ativointangivel +
         $ativo_nao_corrente->ativonaocorrente_outros );
+
+        // get balance from year before
+        $reportFromYearBefore = Report::where('report_year', $year-1)->first();
+        $balanceFromYearBefore = Balance::where('report_id', $reportFromYearBefore->report_id)->first();
+        $ativoFromYearBefore = Ativo::where('balanco_id', $balanceFromYearBefore->balanco_id)->first();
+        // ativo corrente
+        $ativoCorrenteFromYearBefore = AtivoCorrente::where('ativo_id', $ativoFromYearBefore->ativo_id)->first();
+        $compras = $result->resultado_custo_mercadorias_vendidas + 
+        $ativo_corrente->ativoscorrentes_inventarios - $ativoCorrenteFromYearBefore->ativoscorrentes_inventarios;
+
+        /***************************************************************************************************************/
+
         // Ratio liquidez geral = ativo corrente/passivo corrente
         $ratio_liquidez_geral = $total_ativo_corrente / $total_passivo_corrente * 100;
         $ratio_liquidez_geral = round($ratio_liquidez_geral, 2) . '%';
@@ -193,10 +195,53 @@ class CompanyController extends Controller
         $ratio_prazo_medio_recebimento = round($ratio_prazo_medio_recebimento, 2) . ' dias';
         
         // Rácio prazo médio de pagamento = (fornecedores + outras contas a pagar) / (compras e serviços prestados + IVA / 365)
-        $ratio_prazo_medio_pagamento = ($passivo_corrente->passivoscorrentes_fornecedores) / ((($result->re + $result->resultado_variacao_inventarios_producao) * 1.23) / 365);
+        $ratio_prazo_medio_pagamento = ($passivo_corrente->passivoscorrentes_fornecedores) / ((($compras + $result->resultado_variacao_inventarios_producao) * 1.23) / 365);
         $ratio_prazo_medio_pagamento = round($ratio_prazo_medio_pagamento, 2) . ' dias';
 
-        dd($ratio_prazo_medio_pagamento);
+        // Rotacao do ativo = VSP / ativo total
+        $ratio_rotacao_do_ativo = $result->resultado_vsp / ($total_ativo_corrente + $total_ativo_nao_corrente);
+        $ratio_rotacao_do_ativo = round($ratio_rotacao_do_ativo, 2) . ' Vezes';
+
+        // Producao = VSP + SE + VIP + TPE + RS
+        $producao = $result->resultado_vsp + $result->resultado_sub_exp + $result->resultado_outros_rendimentos_ganhos;
+        $producao = round($producao, 2);
+
+        // CI = CMVMC + FSE + Impostos indirectos 
+        $ci = $result->resultado_custo_mercadorias_vendidas + $result->resultado_fornecimentos_servicos_externos;
+        $ci = round($ci, 2);
+
+        // VAB = Producao - CI
+        $vab = $producao - $ci;
+        $vab = round($vab, 2);
+
+        // Coeficiente Vab = VAB / Gastos Pessoais
+        $ratio_coeficiente_vab = $vab / $result->resultado_gastos_pessoal;
+        $ratio_coeficiente_vab = round($ratio_coeficiente_vab, 2);
+
+        // Rentabilidade do ativo = EBITDA / Ativo total
+        $ratio_rentabilidade_do_ativo = $result->resultado_antes_depreciacoes / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
+        $ratio_rentabilidade_do_ativo = round($ratio_rentabilidade_do_ativo, 2) . '%';
+
+        $ratio_rentabilidade_do_ativo_liquido = $result->resultado_liquido / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
+        $ratio_rentabilidade_do_ativo_liquido = round($ratio_rentabilidade_do_ativo_liquido, 2) . '%';
+
+        // Rentabilidade vendas operacionais = EBIT / Vendas e serviços prestados
+
+        $ratio_rentabilidade_vendas_operacionais = $result->resultado_antes_depreciacoes / $result->resultado_vsp * 100;
+        $ratio_rentabilidade_vendas_operacionais = round($ratio_rentabilidade_vendas_operacionais, 2) . '%';
+
+        // Rentabilidade do liquida = Resultado liquido / Vendas e serviços prestados
+        $ratio_rentabilidade_liquida = $result->resultado_liquido / $result->resultado_vsp * 100;
+        $ratio_rentabilidade_liquida = round($ratio_rentabilidade_liquida, 2) . '%';
+
+        // ROE = Resultado liquido / Capital proprio 
+        $ratio_roe = $result->resultado_liquido / $total_capital_proprio * 100;
+        $ratio_roe = round($ratio_roe, 2) . '%';
+
+        // Alavanca financeira = Ativo total / Capital proprio
+        $ratio_alavanca_financeira = ($total_ativo_corrente + $total_ativo_nao_corrente) / $total_capital_proprio;
+        $ratio_alavanca_financeira = round($ratio_alavanca_financeira, 2);
+
 
         return view('dashboard', 
         [
@@ -204,7 +249,6 @@ class CompanyController extends Controller
         'user' => $user,
         'report' => $report,
         'dataPoints' => $dataPoints,
-        'ratio_liquidez_geral' => $ratio_liquidez_geral
         ]);
     }
 }
