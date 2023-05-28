@@ -162,11 +162,11 @@ class CompanyController extends Controller
 
         // Ratio autonomia financeira = capital proprio /  ativo total
         $ratio_autonomia_financeira = $total_capital_proprio / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
-        $ratio_autonomia_financeira = round($ratio_autonomia_financeira, 2) . '%';
+        $ratio_autonomia_financeira = round($ratio_autonomia_financeira, 2);
 
         // Endividamento = passivo total / ativo total
         $ratio_endividamento = (($total_passivo_corrente + $total_passivo_nao_corrente) / ($total_ativo_corrente + $total_ativo_nao_corrente)) * 100;
-        $ratio_endividamento = round($ratio_endividamento, 2) . '%';
+        $ratio_endividamento = round($ratio_endividamento, 2);
 
         // Solvabilidade = capital proprio / passivo total
         $ratio_solvabilidade = $total_capital_proprio / ($total_passivo_corrente + $total_passivo_nao_corrente) * 100;
@@ -220,35 +220,54 @@ class CompanyController extends Controller
 
         // Rentabilidade do ativo = EBITDA / Ativo total
         $ratio_rentabilidade_do_ativo = $result->resultado_antes_depreciacoes / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
-        $ratio_rentabilidade_do_ativo = round($ratio_rentabilidade_do_ativo, 2) . '%';
+        $ratio_rentabilidade_do_ativo = round($ratio_rentabilidade_do_ativo, 2);
 
         $ratio_rentabilidade_do_ativo_liquido = $result->resultado_liquido / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
-        $ratio_rentabilidade_do_ativo_liquido = round($ratio_rentabilidade_do_ativo_liquido, 2) . '%';
+        $ratio_rentabilidade_do_ativo_liquido = round($ratio_rentabilidade_do_ativo_liquido, 2);
 
         // Rentabilidade vendas operacionais = EBIT / Vendas e serviços prestados
 
         $ratio_rentabilidade_vendas_operacionais = $result->resultado_antes_depreciacoes / $result->resultado_vsp * 100;
-        $ratio_rentabilidade_vendas_operacionais = round($ratio_rentabilidade_vendas_operacionais, 2) . '%';
+        $ratio_rentabilidade_vendas_operacionais = round($ratio_rentabilidade_vendas_operacionais, 2);
 
         // Rentabilidade do liquida = Resultado liquido / Vendas e serviços prestados
         $ratio_rentabilidade_liquida = $result->resultado_liquido / $result->resultado_vsp * 100;
-        $ratio_rentabilidade_liquida = round($ratio_rentabilidade_liquida, 2) . '%';
+        $ratio_rentabilidade_liquida = round($ratio_rentabilidade_liquida, 2);
 
         // ROE = Resultado liquido / Capital proprio 
         $ratio_roe = $result->resultado_liquido / $total_capital_proprio * 100;
-        $ratio_roe = round($ratio_roe, 2) . '%';
+        $ratio_roe = round($ratio_roe, 2);
 
         // Alavanca financeira = Ativo total / Capital proprio
         $ratio_alavanca_financeira = ($total_ativo_corrente + $total_ativo_nao_corrente) / $total_capital_proprio;
         $ratio_alavanca_financeira = round($ratio_alavanca_financeira, 2);
-
 
         return view('dashboard', 
         [
         'company' => $company,
         'user' => $user,
         'report' => $report,
-        'dataPoints' => $dataPoints,
+        'ratio_liquidez_geral' => $ratio_liquidez_geral,
+        'ratio_liquidez_reduzida' => $ratio_liquidez_reduzida,
+        'ratio_autonomia_financeira' => $ratio_autonomia_financeira,
+        'ratio_endividamento' => $ratio_endividamento,
+        'ratio_solvabilidade' => $ratio_solvabilidade,
+        'ratio_peso_passivo_remunerado' => $ratio_peso_passivo_remunerado,
+        'custos_do_financiamento_obtido' => $custos_do_financiamento_obtido,
+        'ratio_pressao_financeira' => $ratio_pressao_financeira,
+        'ratio_prazo_medio_recebimento' => $ratio_prazo_medio_recebimento,
+        'ratio_prazo_medio_pagamento' => $ratio_prazo_medio_pagamento,
+        'ratio_rotacao_do_ativo' => $ratio_rotacao_do_ativo,
+        'producao' => $producao,
+        'ci' => $ci,
+        'vab' => $vab,
+        'ratio_coeficiente_vab' => $ratio_coeficiente_vab,
+        'ratio_rentabilidade_do_ativo' => $ratio_rentabilidade_do_ativo,
+        'ratio_rentabilidade_do_ativo_liquido' => $ratio_rentabilidade_do_ativo_liquido,
+        'ratio_rentabilidade_vendas_operacionais' => $ratio_rentabilidade_vendas_operacionais,
+        'ratio_rentabilidade_liquida' => $ratio_rentabilidade_liquida,
+        'ratio_roe' => $ratio_roe,
+        'ratio_alavanca_financeira' => $ratio_alavanca_financeira,
         ]);
     }
 }
