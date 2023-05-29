@@ -195,8 +195,12 @@ class CompanyController extends Controller
         $ratio_prazo_medio_recebimento = round($ratio_prazo_medio_recebimento, 2) . ' dias';
         
         // Rácio prazo médio de pagamento = (fornecedores + outras contas a pagar) / (compras e serviços prestados + IVA / 365)
-        $ratio_prazo_medio_pagamento = ($passivo_corrente->passivoscorrentes_fornecedores) / ((($compras + $result->resultado_variacao_inventarios_producao) * 1.23) / 365);
+        $ratio_prazo_medio_pagamento = ($passivo_corrente->passivoscorrentes_fornecedores) / ((($compras + $result->resultado_fornecimentos_servicos_externos) * 1.23) / 365);
         $ratio_prazo_medio_pagamento = round($ratio_prazo_medio_pagamento, 2) . ' dias';
+        // Rácio médio de rotação de inventários = (inventários + activos biológicos) / compras / 365
+        $ratio_medio_rotacao_inventarios = ($ativo_corrente->ativoscorrentes_inventarios + $ativo_corrente->ativoscorrentes_activosbiologicos) / ($compras / 365);
+        $ratio_medio_rotacao_inventarios = round($ratio_medio_rotacao_inventarios, 2) . ' dias';
+
 
         // Rotacao do ativo = VSP / ativo total
         $ratio_rotacao_do_ativo = $result->resultado_vsp / ($total_ativo_corrente + $total_ativo_nao_corrente);
@@ -242,6 +246,12 @@ class CompanyController extends Controller
         $ratio_alavanca_financeira = ($total_ativo_corrente + $total_ativo_nao_corrente) / $total_capital_proprio;
         $ratio_alavanca_financeira = round($ratio_alavanca_financeira, 2);
 
+
+        // Espacamento entre grandezas monetarias(VAB, Producao, CI) para ficar do tipo 1 000 000,00
+        $vab = number_format($vab, 2, ',', ' ');
+        $producao = number_format($producao, 2, ',', ' ');
+        $ci = number_format($ci, 2, ',', ' ');
+
         return view('dashboard', 
         [
         'company' => $company,
@@ -252,11 +262,13 @@ class CompanyController extends Controller
         'ratio_autonomia_financeira' => $ratio_autonomia_financeira,
         'ratio_endividamento' => $ratio_endividamento,
         'ratio_solvabilidade' => $ratio_solvabilidade,
+        'ratio_cobertura_anc' => $ratio_cobertura_anc,
         'ratio_peso_passivo_remunerado' => $ratio_peso_passivo_remunerado,
         'custos_do_financiamento_obtido' => $custos_do_financiamento_obtido,
         'ratio_pressao_financeira' => $ratio_pressao_financeira,
         'ratio_prazo_medio_recebimento' => $ratio_prazo_medio_recebimento,
         'ratio_prazo_medio_pagamento' => $ratio_prazo_medio_pagamento,
+        'ratio_medio_rotacao_inventarios' => $ratio_medio_rotacao_inventarios,
         'ratio_rotacao_do_ativo' => $ratio_rotacao_do_ativo,
         'producao' => $producao,
         'ci' => $ci,
