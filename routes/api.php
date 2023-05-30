@@ -73,6 +73,7 @@ Route::get('/index/reports', 'CompanyController@reportsGet')->name('companies.ge
 
 // Route to get all the reports of a company using TableController_api
 Route::post('/table/reports/{id}', 'TableController_api@reports');
+Route::post('table/public/reports', 'TableController_api@publicReports');
 
 // Route to select a report using SelectController_api
 Route::get('/select/reports', 'SelectController_api@reports');

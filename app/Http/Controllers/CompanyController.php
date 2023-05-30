@@ -48,10 +48,10 @@ class CompanyController extends Controller
         $company->company_phone = $request->company_phone;
         $company->company_website = $request->company_website;
         $company->sector_id = $request->sector_id;
-        if($request->company_status == 'private'){
-            $company->company_status = false;
+        if($request->status == 'private'){
+            $company->company_status = 0;
         }else{
-            $company->company_status = true;
+            $company->company_status = 1;
         }
         $company->save();
 
@@ -143,13 +143,17 @@ class CompanyController extends Controller
 
         // get balance from year before
         $reportFromYearBefore = Report::where('report_year', $year-1)->first();
+        if($reportFromYearBefore){
         $balanceFromYearBefore = Balance::where('report_id', $reportFromYearBefore->report_id)->first();
         $ativoFromYearBefore = Ativo::where('balanco_id', $balanceFromYearBefore->balanco_id)->first();
         // ativo corrente
         $ativoCorrenteFromYearBefore = AtivoCorrente::where('ativo_id', $ativoFromYearBefore->ativo_id)->first();
         $compras = $result->resultado_custo_mercadorias_vendidas + 
-        $ativo_corrente->ativoscorrentes_inventarios - $ativoCorrenteFromYearBefore->ativoscorrentes_inventarios;
-
+        $ativo_corrente->ativoscorrentes_inventarioss - $ativoCorrenteFromYearBefore->ativoscorrentes_inventarios;
+        }else{
+        $compras = $result->resultado_custo_mercadorias_vendidas + 
+        $ativo_corrente->ativoscorrentes_inventarios;
+        }
         /***************************************************************************************************************/
 
         // Ratio liquidez geral = ativo corrente/passivo corrente

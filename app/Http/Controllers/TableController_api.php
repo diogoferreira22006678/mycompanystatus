@@ -110,4 +110,12 @@ class TableController_api extends Controller{
       $query = Report::with('company')->where('company_id', $company_id);
       return $this->search($query, $request);
   }
+
+  // Reports that have company with a Company::where(company_status, 1)
+  public function publicReports(Request $request){
+      $query = Report::with('company')->whereHas('company', function($query){
+        $query->where('company_status', 1);
+      });
+      return $this->search($query, $request);
+  }
 }
