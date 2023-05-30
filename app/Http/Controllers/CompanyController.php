@@ -158,11 +158,11 @@ class CompanyController extends Controller
 
         // Ratio liquidez geral = ativo corrente/passivo corrente
         $ratio_liquidez_geral = $total_ativo_corrente / $total_passivo_corrente * 100;
-        $ratio_liquidez_geral = round($ratio_liquidez_geral, 2) . '%';
+        $ratio_liquidez_geral = round($ratio_liquidez_geral, 2);
 
         // Ratio liquidez reduzida = (ativo corrente - inventários - act.biologicos) / passivo corrente
         $ratio_liquidez_reduzida = ($total_ativo_corrente - $ativo_corrente->ativoscorrentes_inventarios - $ativo_corrente->ativoscorrentes_activosbiologicos) / $total_passivo_corrente * 100;
-        $ratio_liquidez_reduzida = round($ratio_liquidez_reduzida, 2) . '%';
+        $ratio_liquidez_reduzida = round($ratio_liquidez_reduzida, 2);
 
         // Ratio autonomia financeira = capital proprio /  ativo total
         $ratio_autonomia_financeira = $total_capital_proprio / ($total_ativo_corrente + $total_ativo_nao_corrente) * 100;
@@ -174,12 +174,12 @@ class CompanyController extends Controller
 
         // Solvabilidade = capital proprio / passivo total
         $ratio_solvabilidade = $total_capital_proprio / ($total_passivo_corrente + $total_passivo_nao_corrente) * 100;
-        $ratio_solvabilidade = round($ratio_solvabilidade, 2) . '%';
+        $ratio_solvabilidade = round($ratio_solvabilidade, 2);
 
         // Cobertura do AnC = (capital proprio + passivo nao corrente) / activo nao corrente
 
         $ratio_cobertura_anc = ($total_capital_proprio + $total_passivo_nao_corrente) / $total_ativo_nao_corrente * 100;
-        $ratio_cobertura_anc = round($ratio_cobertura_anc, 2) . '%';
+        $ratio_cobertura_anc = round($ratio_cobertura_anc, 2);
 
         // Peso do passivo remunerado = (passivo corrente + passivo nao corrente) / passivo total
 
