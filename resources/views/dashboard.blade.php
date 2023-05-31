@@ -467,7 +467,6 @@
                         <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                             <p class="text-center dropdown-header">Opções de Ação</p>
                             <a class="dropdown-item" id="concept-18">&nbsp;Conceito</a>
-                            <a class="dropdown-item" id="interpretation-18">&nbsp;Interpretação</a>
                         </div>
                     </div>
                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
@@ -490,7 +489,6 @@
                         <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                             <p class="text-center dropdown-header">Opções de Ação</p>
                             <a class="dropdown-item" id="concept-19">&nbsp;Conceito</a>
-                            <a class="dropdown-item" id="interpretation-19">&nbsp;Interpretação</a>
                         </div>
                     </div>
                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
@@ -574,8 +572,6 @@
     let interpretation15 = document.getElementById('interpretation-15');
     let interpretation16 = document.getElementById('interpretation-16');
     let interpretation17 = document.getElementById('interpretation-17');
-    let interpretation18 = document.getElementById('interpretation-18');
-    let interpretation19 = document.getElementById('interpretation-19');
 
     let ratio_liquidez_geral = @json($ratio_liquidez_geral);
     let ratio_liquidez_reduzida = @json($ratio_liquidez_reduzida);
@@ -587,6 +583,7 @@
     let ratio_rentabilidade_do_ativo = @json($ratio_rentabilidade_do_ativo);
     let ratio_rentabilidade_do_ativo_liquido = @json($ratio_rentabilidade_do_ativo_liquido);
     let ratio_rentabilidade_vendas_operacionais = @json($ratio_rentabilidade_vendas_operacionais);
+    let custos_do_financiamento_obtido = @json($custos_do_financiamento_obtido);
     let ratio_rentabilidade_liquida = @json($ratio_rentabilidade_liquida);
     let ratio_alavanca_financeira = @json($ratio_alavanca_financeira);
     let ratio_roe = @json($ratio_roe);
@@ -930,10 +927,10 @@ concept11.addEventListener('click', i => {
         modal.querySelector('.modal-body').innerHTML += `
         <h4 class="modal-title">Interpretação de Custos de Financiamento</h4>`
         // em percentagem
-        if(ratio_custos_financiamento > 50){
+        if(custos_do_financiamento_obtido > 50){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Um custo de financiamento superior a 50% indica que a empresa gasta mais de metade do seu lucro líquido com juros, taxas, comissões e outras despesas relacionadas a empréstimos, financiamentos e linhas de crédito. Quanto maior o custo de financiamento, menor é a rentabilidade da empresa.</p>`;
-        }else if(ratio_custos_financiamento < 50){
+        }else if(custos_do_financiamento_obtido < 50){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Um custo de financiamento inferior a 50% indica que a empresa gasta menos de metade do seu lucro líquido com juros, taxas, comissões e outras despesas relacionadas a empréstimos, financiamentos e linhas de crédito. Quanto menor o custo de financiamento, maior é a rentabilidade da empresa.</p>`;
         }else{
@@ -970,10 +967,10 @@ concept11.addEventListener('click', i => {
         modal.querySelector('.modal-body').innerHTML += `
         <h4 class="modal-title">Interpretação de Rentabilidade do Ativo</h4>`
         // em percentagem
-        if(ratio_rentabilidade_ativo > 10){
+        if(ratio_rentabilidade_do_ativo > 10){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rentabilidade do ativo superior a 10% indica que a empresa é eficiente e lucrativa na utilização dos seus recursos para gerar retorno financeiro. Quanto maior a rentabilidade do ativo, maior é a eficiência e rentabilidade da empresa.</p>`;
-        }else if(ratio_rentabilidade_ativo < 10){
+        }else if(ratio_rentabilidade_do_ativo < 10){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rentabilidade do ativo inferior a 10% indica que a empresa não é eficiente e lucrativa na utilização dos seus recursos para gerar retorno financeiro. Quanto menor a rentabilidade do ativo, menor é a eficiência e rentabilidade da empresa.</p>`;
         }else{
@@ -990,10 +987,10 @@ concept11.addEventListener('click', i => {
         modal.querySelector('.modal-body').innerHTML += `
         <h4 class="modal-title">Interpretação de Rentabilidade do Ativo Líquido</h4>`
         // em percentagem
-        if(ratio_rentabilidade_ativo_liquido > 10){
+        if(ratio_rentabilidade_do_ativo_liquido > 10){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rentabilidade do ativo líquido superior a 10% indica que a empresa é eficiente e lucrativa na utilização dos seus recursos próprios para gerar retorno financeiro. Quanto maior a rentabilidade do ativo líquido, maior é a eficiência e rentabilidade da empresa.</p>`;
-        }else if(ratio_rentabilidade_ativo_liquido < 10){
+        }else if(ratio_rentabilidade_do_ativo_liquido < 10){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rentabilidade do ativo líquido inferior a 10% indica que a empresa não é eficiente e lucrativa na utilização dos seus recursos próprios para gerar retorno financeiro. Quanto menor a rentabilidade do ativo líquido, menor é a eficiência e rentabilidade da empresa.</p>`;
         }else{
@@ -1030,10 +1027,10 @@ concept11.addEventListener('click', i => {
         modal.querySelector('.modal-body').innerHTML += `
         <h4 class="modal-title">Interpretação de Rentabilidade das Vendas Líquidas</h4>`
         // em percentagem
-        if(ratio_rentabilidade_vendas_liquidas > 10){
+        if(ratio_rentabilidade_liquida > 10){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rentabilidade das vendas líquidas superior a 10% indica que a empresa é eficiente e lucrativa na geração de retorno financeiro a partir das suas vendas líquidas. Quanto maior a rentabilidade das vendas líquidas, maior é a eficiência e rentabilidade da empresa.</p>`;
-        }else if(ratio_rentabilidade_vendas_liquidas < 10){
+        }else if(ratio_rentabilidade_liquida < 10){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rentabilidade das vendas líquidas inferior a 10% indica que a empresa não é eficiente e lucrativa na geração de retorno financeiro a partir das suas vendas líquidas. Quanto menor a rentabilidade das vendas líquidas, menor é a eficiência e rentabilidade da empresa.</p>`;
         }else{
@@ -1125,10 +1122,10 @@ concept11.addEventListener('click', i => {
         let modal = document.getElementById('modal-Interpretação');
         modal.querySelector('.modal-body').innerHTML = `
         <h4 class ="modal-title">Prazo médio de rotação de Inventários</h4>`;
-        if(ratio_prazo_medio_rotacao_inventarios > ratio_prazo_medio_recebimento){
+        if(ratio_medio_rotacao_inventarios > ratio_prazo_medio_recebimento){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Um prazo médio de rotação de inventários superior ao prazo médio de recebimentos indica que a empresa demora mais tempo a vender os seus inventários do que a receber dos seus clientes. Quanto maior o prazo médio de rotação de inventários, maior é a demora da empresa em vender os seus inventários.</p>`;
-        }else if(ratio_prazo_medio_rotacao_inventarios < ratio_prazo_medio_recebimento){
+        }else if(ratio_medio_rotacao_inventarios < ratio_prazo_medio_recebimento){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Um prazo médio de rotação de inventários inferior ao prazo médio de recebimentos indica que a empresa demora menos tempo a vender os seus inventários do que a receber dos seus clientes. Quanto menor o prazo médio de rotação de inventários, menor é a demora da empresa em vender os seus inventários.</p>`;
         }else{
@@ -1144,10 +1141,10 @@ concept11.addEventListener('click', i => {
         let modal = document.getElementById('modal-Interpretação');
         modal.querySelector('.modal-body').innerHTML = `
         <h4 class ="modal-title">Rotação do Ativo</h4>`;
-        if(ratio_rotacao_ativo > 1.0){
+        if(ratio_rotacao_do_ativo > 1.0){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rotação do ativo superior a 1.0 indica que a empresa é eficiente e lucrativa na utilização dos seus ativos para gerar retorno financeiro. Quanto maior a rotação do ativo, maior é a eficiência e rentabilidade da empresa.</p>`;
-        }else if(ratio_rotacao_ativo < 1.0){
+        }else if(ratio_rotacao_do_ativo < 1.0){
             modal.querySelector('.modal-body').innerHTML = `
             <p>Uma rotação do ativo inferior a 1.0 indica que a empresa não é eficiente e lucrativa na utilização dos seus ativos para gerar retorno financeiro. Quanto menor a rotação do ativo, menor é a eficiência e rentabilidade da empresa.</p>`;
         }else{
@@ -1158,7 +1155,7 @@ concept11.addEventListener('click', i => {
         myModal.show();
     });
 
-    interpretation1.addEventListener('click', i =>{
+    interpretation16.addEventListener('click', i =>{
         i.preventDefault();
         let modal = document.getElementById('modal-Interpretação');
         modal.querySelector('.modal-body').innerHTML = `
@@ -1172,6 +1169,26 @@ concept11.addEventListener('click', i => {
         }else{
             modal.querySelector('.modal-body').innerHTML = `
             <p>Um coenficiente VAB de 1.0 indica que a empresa é eficiente e lucrativa na utilização dos seus recursos para gerar valor acrescentado bruto. Quanto maior o coeficiente VAB, maior é a eficiência e rentabilidade da empresa.</p>`;
+        }
+        let myModal = new bootstrap.Modal(modal);
+        myModal.show();
+    });
+
+    interpretation17.addEventListener('click', i =>{
+        i.preventDefault();
+        let modal = document.getElementById('modal-Interpretação');
+        modal.querySelector('.modal-body').innerHTML = `
+        <h4 class="modal-title">VAB</h4>`;
+        // VAB = PRODUCAO - CI 
+        if(vab > 0){
+            modal.querySelector('.modal-body').innerHTML = `
+            <p>Um VAB positivo indica que a empresa é eficiente e lucrativa na utilização dos seus recursos para gerar valor acrescentado bruto. Quanto maior o VAB, maior é a eficiência e rentabilidade da empresa.</p>`;
+        }else if(vab < 0){
+            modal.querySelector('.modal-body').innerHTML = `
+            <p>Um VAB negativo indica que a empresa não é eficiente e lucrativa na utilização dos seus recursos para gerar valor acrescentado bruto. Quanto menor o VAB, menor é a eficiência e rentabilidade da empresa.</p>`;
+        }else{
+            modal.querySelector('.modal-body').innerHTML = `
+            <p>Um VAB de 0 indica que a empresa é eficiente e lucrativa na utilização dos seus recursos para gerar valor acrescentado bruto. Quanto maior o VAB, maior é a eficiência e rentabilidade da empresa.</p>`;
         }
         let myModal = new bootstrap.Modal(modal);
         myModal.show();
