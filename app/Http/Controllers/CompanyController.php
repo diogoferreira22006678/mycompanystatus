@@ -184,31 +184,31 @@ class CompanyController extends Controller
         // Peso do passivo remunerado = (passivo corrente + passivo nao corrente) / passivo total
 
         $ratio_peso_passivo_remunerado = ($passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos) / ($total_passivo_corrente + $total_passivo_nao_corrente) * 100;
-        $ratio_peso_passivo_remunerado = round($ratio_peso_passivo_remunerado, 2) . '%';
+        $ratio_peso_passivo_remunerado = round($ratio_peso_passivo_remunerado, 2);
 
         // Custos dos financiamentos obtidos = resultados->juros_gastos_similares_suportados / ($passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos)
         $custos_do_financiamento_obtido = $result->resultado_juros_gastos_similares / ($passivo_corrente->passivoscorrentes_financiamentosobtidos + $passivo_nao_corrente->passivosnaocorrentes_financiamentosobtidos) * 100;
-        $custos_do_financiamento_obtido = round($custos_do_financiamento_obtido, 2) . '%';
+        $custos_do_financiamento_obtido = round($custos_do_financiamento_obtido, 2);
         
         // Pressão financeira = fastos de financeamento / EBITDA
         $ratio_pressao_financeira = $result->resultado_juros_gastos_similares / $result->resultado_antes_depreciacoes * 100;
-        $ratio_pressao_financeira = round($ratio_pressao_financeira, 2) . '%';
+        $ratio_pressao_financeira = round($ratio_pressao_financeira, 2);
 
         // Rácio prazo médio de recebimento = (clientes + outros devedores) / (vendas e serviços prestados + IVA / 365)
         $ratio_prazo_medio_recebimento = ($ativo_corrente->ativoscorrentes_clientes) / ((($result->resultado_vsp + $result->resultado_variacao_inventarios_producao) * 1.23) / 365);
-        $ratio_prazo_medio_recebimento = round($ratio_prazo_medio_recebimento, 2) . ' dias';
+        $ratio_prazo_medio_recebimento = round($ratio_prazo_medio_recebimento, 2);
         
         // Rácio prazo médio de pagamento = (fornecedores + outras contas a pagar) / (compras e serviços prestados + IVA / 365)
         $ratio_prazo_medio_pagamento = ($passivo_corrente->passivoscorrentes_fornecedores) / ((($compras + $result->resultado_fornecimentos_servicos_externos) * 1.23) / 365);
-        $ratio_prazo_medio_pagamento = round($ratio_prazo_medio_pagamento, 2) . ' dias';
+        $ratio_prazo_medio_pagamento = round($ratio_prazo_medio_pagamento, 2);
         // Rácio médio de rotação de inventários = (inventários + activos biológicos) / compras / 365
         $ratio_medio_rotacao_inventarios = ($ativo_corrente->ativoscorrentes_inventarios + $ativo_corrente->ativoscorrentes_activosbiologicos) / ($compras / 365);
-        $ratio_medio_rotacao_inventarios = round($ratio_medio_rotacao_inventarios, 2) . ' dias';
+        $ratio_medio_rotacao_inventarios = round($ratio_medio_rotacao_inventarios, 2);
 
 
         // Rotacao do ativo = VSP / ativo total
         $ratio_rotacao_do_ativo = $result->resultado_vsp / ($total_ativo_corrente + $total_ativo_nao_corrente);
-        $ratio_rotacao_do_ativo = round($ratio_rotacao_do_ativo, 2) . ' Vezes';
+        $ratio_rotacao_do_ativo = round($ratio_rotacao_do_ativo, 2);
 
         // Producao = VSP + SE + VIP + TPE + RS
         $producao = $result->resultado_vsp + $result->resultado_sub_exp + $result->resultado_outros_rendimentos_ganhos;
